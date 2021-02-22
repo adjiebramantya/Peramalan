@@ -22,7 +22,7 @@
 				<div class="panel-header">
 					<div class="page-inner py-5">
             <div class="page-header">
-						<h4 class="page-title">Produk</h4>
+						<h4 class="page-title">Hasil Ramalan</h4>
 						<ul class="breadcrumbs">
 							<li class="nav-home">
 								<a href="<?php echo base_url('dashboard') ?>">
@@ -35,72 +35,54 @@
 							<li class="nav-item">
 								<a href="<?php echo base_url('produk') ?>">Produk</a>
 							</li>
+							<li class="separator">
+								<i class="flaticon-right-arrow"></i>
+							</li>
+							<li class="nav-item">
+								<a href="">Ramal Produk</a>
+							</li>
 						</ul>
 					</div>
 					</div>
 				</div>
 				<div class="page-inner mt--5">
 					<div class="row mt--2">
-            <div class="col-md-12">
-							<div class="card">
-								<div class="card-header">
-									<div class="d-flex align-items-center">
-										<h4 class="card-title">Tabel Produk</h4>
-										<button class="btn btn-success btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
-											<i class="fa fa-plus"></i>
-											Tambah Produk
-										</button>
-									</div>
-								</div>
+						<div class="col-md-6">
+							<div class="card full-height">
 								<div class="card-body">
-									<!-- Modal -->
-									<div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
-										<div class="modal-dialog" role="document">
-											<div class="modal-content">
-												<div class="modal-header no-bd">
-													<h5 class="modal-title">
-														<span class="fw-mediumbold">
-														Tambah</span>
-														<span class="fw-light">
-														Produk
-														</span>
-													</h5>
-													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-														<span aria-hidden="true">&times;</span>
-													</button>
-												</div>
-												<div class="modal-body">
-													<form>
-														<div class="row">
-															<div class="col-sm-12">
-																<div class="form-group form-group-default">
-																	<label>Name</label>
-																	<input id="addName" type="text" class="form-control" placeholder="fill name">
-																</div>
-															</div>
-															<div class="col-md-6 pr-0">
-																<div class="form-group form-group-default">
-																	<label>Position</label>
-																	<input id="addPosition" type="text" class="form-control" placeholder="fill position">
-																</div>
-															</div>
-															<div class="col-md-6">
-																<div class="form-group form-group-default">
-																	<label>Office</label>
-																	<input id="addOffice" type="text" class="form-control" placeholder="fill office">
-																</div>
-															</div>
-														</div>
-													</form>
-												</div>
-												<div class="modal-footer no-bd">
-													<button type="button" id="addRowButton" class="btn btn-primary">Tambah</button>
-													<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-												</div>
-											</div>
+									<div class="card-title">Statistik Keseluruhan</div>
+									<div class="d-flex flex-wrap justify-content-left pb-2 pt-4">
+										<div class="px-2 pb-2 pb-md-0">
+											<h6 class="fw-bold mt-3 mb-0">Produk</h6>
 										</div>
 									</div>
+									<div class="d-flex flex-wrap justify-content-left pb-2 pt-4">
+										<div class="px-2 pb-2 pb-md-0">
+											<h6 class="fw-bold mt-3 mb-0">Produk</h6>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="card full-height">
+								<div class="card-header">
+									<div class="card-title">Grafik Keseluruhan</div>
+								</div>
+								<div class="card-body">
+									<div id="chart-container">
+										<canvas id="multipleLineChart"></canvas>
+									</div>
+								</div>
+							</div>
+						</div>
 
+						<div class="col-md-12">
+							<div class="card full-height">
+								<div class="card-header">
+									<div class="card-title">Tabel Keseluruhan</div>
+								</div>
+								<div class="card-body">
 									<div class="table-responsive">
 										<table id="add-row" class="display table table-striped table-hover" >
 											<thead>
@@ -126,8 +108,8 @@
 													<td>Edinburgh</td>
 													<td>
 														<div class="form-button-action">
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
+															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Ramalkan">
+																<i class="fas fa-chart-line"></i>
 															</button>
 															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
 																<i class="fa fa-times"></i>
@@ -292,6 +274,75 @@
     $('#add-row').DataTable({
       "pageLength": 10,
     });
+
+//Chart
+var multipleLineChart = document.getElementById('multipleLineChart').getContext('2d');
+
+var myMultipleLineChart = new Chart(multipleLineChart, {
+	type: 'line',
+	data: {
+		labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+		datasets: [{
+			label: "Python",
+			borderColor: "#1d7af3",
+			pointBorderColor: "#FFF",
+			pointBackgroundColor: "#1d7af3",
+			pointBorderWidth: 2,
+			pointHoverRadius: 4,
+			pointHoverBorderWidth: 1,
+			pointRadius: 4,
+			backgroundColor: 'transparent',
+			fill: true,
+			borderWidth: 2,
+			data: [30, 45, 45, 68, 69, 90, 100, 158, 177, 200, 245, 256,]
+		},{
+			label: "PHP",
+			borderColor: "#59d05d",
+			pointBorderColor: "#FFF",
+			pointBackgroundColor: "#59d05d",
+			pointBorderWidth: 2,
+			pointHoverRadius: 4,
+			pointHoverBorderWidth: 1,
+			pointRadius: 4,
+			backgroundColor: 'transparent',
+			fill: true,
+			borderWidth: 2,
+			data: [10, 20, 55, 75, 80, 48, 59, 55, 23, 107, 60, 87]
+		}, {
+			label: "Ruby",
+			borderColor: "#f3545d",
+			pointBorderColor: "#FFF",
+			pointBackgroundColor: "#f3545d",
+			pointBorderWidth: 2,
+			pointHoverRadius: 4,
+			pointHoverBorderWidth: 1,
+			pointRadius: 4,
+			backgroundColor: 'transparent',
+			fill: true,
+			borderWidth: 2,
+			data: [10, 30, 58, 79, 90, 105, 117, 160, 185, 210, 185, 194]
+		}]
+	},
+	options : {
+		responsive: true,
+		maintainAspectRatio: false,
+		legend: {
+			position: 'top',
+		},
+		tooltips: {
+			bodySpacing: 4,
+			mode:"nearest",
+			intersect: 0,
+			position:"nearest",
+			xPadding:10,
+			yPadding:10,
+			caretPadding:10
+		},
+		layout:{
+			padding:{left:15,right:15,top:15,bottom:15}
+		}
+	}
+});
   </script>
 
 	<!-- Atlantis DEMO methods, don't include it in your project! -->
