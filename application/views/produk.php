@@ -7,7 +7,8 @@
 	<link rel="icon" href="<?php echo base_url()?>assets/img/icon.ico" type="image/x-icon"/>
 
 	<!-- Fonts and icons -->
-<?php $this->load->view('_partial/css.php') ?>
+	<?php $this->load->view('_partial/css.php') ?>
+
 </head>
 <body>
 	<div class="wrapper">
@@ -69,32 +70,38 @@
 														<span aria-hidden="true">&times;</span>
 													</button>
 												</div>
+												<form>
 												<div class="modal-body">
-													<form>
 														<div class="row">
 															<div class="col-sm-12">
 																<div class="form-group form-group-default">
-																	<label>Name</label>
-																	<input id="addName" type="text" class="form-control" placeholder="fill name">
+																	<label>Nama Produk</label>
+																	<input id="nama_produk" name="nama_produk" type="text" class="form-control" placeholder="Masukkan Nama Produk">
 																</div>
 															</div>
 															<div class="col-md-6 pr-0">
 																<div class="form-group form-group-default">
-																	<label>Position</label>
-																	<input id="addPosition" type="text" class="form-control" placeholder="fill position">
+																	<label for="exampleFormControlSelect2">Jenis Produk</label>
+																	<select class="form-control" name="jenis_produk" id="exampleFormControlSelect2">
+															      <option>1</option>
+															      <option>2</option>
+															      <option>3</option>
+															      <option>4</option>
+															      <option>5</option>
+															    </select>
 																</div>
 															</div>
 															<div class="col-md-6">
 																<div class="form-group form-group-default">
-																	<label>Office</label>
-																	<input id="addOffice" type="text" class="form-control" placeholder="fill office">
+																	<label>Harga</label>
+																	<input id="harga" name="harga" type="number" class="form-control" placeholder="Masukkan Harga">
 																</div>
 															</div>
 														</div>
-													</form>
 												</div>
+												</form>
 												<div class="modal-footer no-bd">
-													<button type="button" id="addRowButton" class="btn btn-primary">Tambah</button>
+													<button type="submit" id="addRowButton" class="btn btn-primary">Tambah</button>
 													<button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
 												</div>
 											</div>
@@ -285,13 +292,14 @@
 		<!-- Custom template | don't include it in your project! -->
 		<!-- End Custom template -->
 	</div>
-	<?php $this->load->view('_partial/js.php') ?>
+  <?php $this->load->view('_partial/js') ?>
 
   <script type="text/javascript">
   // Add Row
     $('#add-row').DataTable({
       "pageLength": 10,
     });
+
   </script>
 
 	<!-- Atlantis DEMO methods, don't include it in your project! -->
