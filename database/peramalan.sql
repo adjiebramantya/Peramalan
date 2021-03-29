@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2021 at 06:10 AM
+-- Generation Time: Mar 29, 2021 at 11:47 AM
 -- Server version: 10.1.39-MariaDB
 -- PHP Version: 7.3.5
 
@@ -55,7 +55,8 @@ CREATE TABLE `jenis_produk` (
 CREATE TABLE `produk` (
   `id_produk` int(11) NOT NULL,
   `nama_produk` text NOT NULL,
-  `jenis_produk` int(11) NOT NULL
+  `jenis_produk` int(11) NOT NULL,
+  `harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
