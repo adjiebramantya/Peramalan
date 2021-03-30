@@ -9,7 +9,7 @@
 	<!-- Fonts and icons -->
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/select2.min.css">
 
-	<script type='text/javascript' src="<?php echo base_url();?>assets/js/core/jquery.3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+	<script type='text/javascript' src="<?php echo base_url();?>assets/js/core/jquery.3.4.1.js" integrity="" crossorigin="anonymous"></script>
 	<script type='text/javascript' src="<?php echo base_url();?>assets/js/plugin/select2/select2.full.js"></script>
 <?php $this->load->view('_partial/css.php') ?>
 

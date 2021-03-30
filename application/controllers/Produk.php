@@ -13,7 +13,7 @@ class Produk extends CI_Controller {
 	public function index()
 	{
 		$data['produk'] = $this->M_produk->tampil_produk()->result();
-		$this->load->view('produk');
+		$this->load->view('produk',$data);
 	}
 
 	// TAMBAH PRODUK
