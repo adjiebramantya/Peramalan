@@ -7,6 +7,7 @@ class Produk extends CI_Controller {
 			parent::__construct();
 			$this->load->model('M_produk');
 			$this->load->helper('url');
+			$this->load->library('form_validation');
 	}
 
 	//TAMPIL PRODUK
@@ -18,17 +19,27 @@ class Produk extends CI_Controller {
 
 	// TAMBAH PRODUK
 	function tambah_produk(){
-		$nama_produk = $this->input->post('nama_produk');
-		$jenis_produk = $this->input->post('jenis_produk');
-		$harga = $this->input->post('harga');
 
-		$data = array(
-			'nama_produk' => $nama_produk,
-			'jenis_produk' => $jenis_produk,
-			'harga' => $harga
-			);
-		$this->M_produk->input_data($data,'produk');
-		redirect('produk');
+		$this->form_validation->set_rules('nama_produk', 'Nama Produk', 'required|is_unique[produk.nama_produk]');
+
+		if ($this->form_validation->run()==true) {
+			$nama_produk = $this->input->post('nama_produk');
+			$jenis_produk = $this->input->post('jenis_produk');
+			$harga = $this->input->post('harga');
+
+			$data = array(
+				'nama_produk' => $nama_produk,
+				'jenis_produk' => $jenis_produk,
+				'harga' => $harga
+				);
+			$this->M_produk->input_data($data,'produk');
+			redirect('produk');
+		}
+		else
+		{
+			$data['produk'] = $this->M_produk->tampil_produk()->result();
+			$this->load->view('produk',$data);
+		}
 	}
 
 	// EDIT PRODUK

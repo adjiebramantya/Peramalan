@@ -47,6 +47,14 @@
 								<div class="card-header">
 									<div class="d-flex align-items-center">
 										<h4 class="card-title">Tabel Produk</h4>
+										<?php if (validation_errors()) {?>
+												 <div class="alert alert-warning alert-dismissible fade show" role="alert">
+												  <strong>Perhatian!!</strong> <?php echo validation_errors(); ?>
+												  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												    <span aria-hidden="true">&times;</span>
+												  </button>
+												</div>
+										<?php } ?>
 										<button class="btn btn-success btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
 											<i class="fa fa-plus"></i>
 											Tambah Produk
@@ -112,8 +120,8 @@
 												<tr>
 													<th>Nomor</th>
 													<th>Nama Produk</th>
-													<th>Jenis Produk</th>
-													<th>Harga</th>
+													<th style="width: 15%">Jenis Produk</th>
+													<th style="width: 15%">Harga</th>
 													<th style="width: 10%">Action</th>
 												</tr>
 											</thead>
