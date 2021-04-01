@@ -97,14 +97,14 @@
 															</div>
 															<div class="col-md-6">
 																<div class="form-group form-group-default">
-																	<label>Tanggal</label>
-																	<input id="tanggal" name="tanggal" type="date" class="form-control" placeholder="Masukkan Tanggal">
+																	<label>Jumlah</label>
+																	<input id="jumlah" name="jumlah" type="number" class="form-control" placeholder="Masukkan Stok">
 																</div>
 															</div>
 															<div class="col-md-6">
 																<div class="form-group form-group-default">
-																	<label>Jumlah</label>
-																	<input id="jumlah" name="jumlah" type="number" class="form-control" placeholder="Masukkan Stok">
+																	<label>Tanggal</label>
+																	<input id="tanggal" name="tanggal" type="date" class="form-control" placeholder="Masukkan Tanggal">
 																</div>
 															</div>
 														</div>
