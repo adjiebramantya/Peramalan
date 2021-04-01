@@ -15,6 +15,7 @@ class Barangmasuk extends CI_Controller {
 	{
 		$data['orderBySatuan'] = $this->M_produk->orderBySatuan()->result();
 		$data['orderByPaket'] = $this->M_produk->orderByPaket()->result();
+		$data['barangMasuk'] = $this->M_barangMasuk->tampil_barangMasuk()->result();
 		$this->load->view('barangMasuk',$data);
 	}
 
