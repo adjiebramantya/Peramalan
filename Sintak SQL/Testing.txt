@@ -1,0 +1,1 @@
+SELECT id_nama,YEAR(tanggal) as tahun, MONTH(tanggal) as Bulan, SUM(stok) as jumlah FROM barangmasuk WHERE id_nama = 1 GROUP BY MONTH(tanggal), YEAR(tanggal) ORDER BY tanggal asc
