@@ -1,1 +1,3 @@
 SELECT id_nama,YEAR(tanggal) as tahun, MONTH(tanggal) as Bulan, SUM(stok) as jumlah FROM barangmasuk WHERE id_nama = 1 GROUP BY MONTH(tanggal), YEAR(tanggal) ORDER BY tanggal asc
+
+SELECT produk.nama_produk as nama_produk, YEAR(tanggal) as tahun, MONTH(tanggal) as Bulan, SUM(jumlah) as jumlah FROM barang_masuk JOIN produk ON barang_masuk.id_produk= produk.id_produk WHERE barang_masuk.id_produk = 1 GROUP BY MONTH(tanggal), YEAR(tanggal) ORDER BY tanggal asc
