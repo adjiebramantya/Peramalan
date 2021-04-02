@@ -98,7 +98,7 @@
 															<div class="col-md-6">
 																<div class="form-group form-group-default">
 																	<label>Jumlah</label>
-																	<input id="jumlah" name="jumlah" type="number" class="form-control" placeholder="Masukkan Stok">
+																	<input id="jumlah" name="jumlah" type="number" class="form-control" placeholder="Masukkan Stok" value="1">
 																</div>
 															</div>
 															<div class="col-md-6">
