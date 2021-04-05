@@ -139,7 +139,7 @@
 												</tr>
 											</tfoot>
 											<tbody>
-												<?php
+												<!--<?php
 												$no = 1;
 												foreach($barangMasuk as $p){
 												?>
@@ -159,7 +159,7 @@
 														</div>
 													</td>
 												</tr>
-												<?php } ?>
+											<?php } ?>-->
 											</tbody>
 										</table>
 									</div>
