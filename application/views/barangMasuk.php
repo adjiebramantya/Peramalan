@@ -139,9 +139,9 @@
 												</tr>
 											</tfoot>
 											<tbody>
-												<!--<?php
+												<?php
 												$no = 1;
-												foreach($barangMasuk as $p){
+												foreach($jumlah_transaksi as $p){
 												?>
 												<tr>
 													<td><?php echo $no++ ?></td>
@@ -159,7 +159,7 @@
 														</div>
 													</td>
 												</tr>
-											<?php } ?>-->
+											<?php } ?>
 											</tbody>
 										</table>
 									</div>
