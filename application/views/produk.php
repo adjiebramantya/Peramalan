@@ -146,12 +146,12 @@
 													<td>Rp. <?php echo number_format($p->harga) ?></td>
 													<td>
 														<div class="form-button-action">
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
+															<a type="button" data-toggle="modal" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
 																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
+															</a>
+															<a type="button" data-toggle="modal" title="" data-target="#modal_hapus<?php echo $p->id_produk?>" class="btn btn-link btn-danger" data-original-title="Remove">
 																<i class="fa fa-times"></i>
-															</button>
+															</a>
 														</div>
 													</td>
 												</tr>
@@ -160,6 +160,39 @@
 										</table>
 									</div>
 								</div>
+								<?php
+				       	foreach($produk as $p):
+				            $id_produk=$p->id_produk;
+				            $nama_produk=$p->nama_produk;
+				            $jenis_produk=$p->jenis_produk;
+				            $harga=$p->harga;
+				        ?>
+				     <!-- ============ MODAL HAPUS BARANG =============== -->
+				        <div class="modal fade" id="modal_hapus<?php echo $id_produk;?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+				            <div class="modal-dialog">
+				            <div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title">Hapus Barang</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div
+				            <form class="form-horizontal" method="post" action="<?= base_url('produk/hapus_produk/<?php echo $id_produk?>')?>">
+				                <div class="modal-body">
+				                    <p>Anda yakin mau menghapus <b><?php echo $nama_produk;?></b></p>
+				                </div>
+				                <div class="modal-footer">
+				                    <!-- <input type="hidden" name="kode_barang" value=""> -->
+				                    <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+				                    <button type="submit" class="btn btn-danger">Hapus</button>
+				                </div>
+				            </form>
+				            </div>
+				            </div>
+				        </div>
+				    		<?php endforeach;?>
+				    		<!-- END MODAL HAPUS BARANG -->
+
 							</div>
 						</div>
 					</div>
