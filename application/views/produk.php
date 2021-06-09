@@ -146,7 +146,7 @@
 													<td>Rp. <?php echo number_format($p->harga) ?></td>
 													<td>
 														<div class="form-button-action">
-															<a type="button" data-toggle="modal" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
+															<a type="button" data-toggle="modal" title="" data-target="#modal_edit<?php echo $p->id_produk?>" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
 																<i class="fa fa-edit"></i>
 															</a>
 															<a type="button" data-toggle="modal" title="" data-target="#modal_hapus<?php echo $p->id_produk?>" class="btn btn-link btn-danger" data-original-title="Remove">
@@ -160,14 +160,80 @@
 										</table>
 									</div>
 								</div>
+
+								<!-- ============ MODAL Edit BARANG =============== -->
 								<?php
-				       	foreach($produk as $p):
-				            $id_produk=$p->id_produk;
-				            $nama_produk=$p->nama_produk;
-				            $jenis_produk=$p->jenis_produk;
-				            $harga=$p->harga;
-				        ?>
+								foreach($produk as $p):
+										$id_produk=$p->id_produk;
+										$nama_produk=$p->nama_produk;
+										$jenis_produk=$p->jenis_produk;
+										$harga=$p->harga;
+								?>
+								<div class="modal fade" id="modal_edit<?php echo $id_produk;?>" tabindex="-1" role="dialog" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header no-bd">
+												<h5 class="modal-title">
+													<span class="fw-mediumbold">
+													Edit</span>
+													<span class="fw-light">
+													Produk
+													</span>
+												</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<form action="<?= base_url('produk/edit_produk/<?php echo $id_produk?>')?>" method="POST">
+											<div class="modal-body">
+													<div class="row">
+														<div class="col-sm-12">
+															<div class="form-group form-group-default" hidden>
+																<label>ID Produk</label>
+																<input id="id_produk" name="id_produk" type="text" class="form-control" placeholder="Masukkan ID Produk" value="<?php echo $id_produk;?>">
+															</div>
+															<div class="form-group form-group-default">
+																<label>Nama Produk</label>
+																<input id="nama_produk" name="nama_produk" type="text" class="form-control" placeholder="Masukkan Nama Produk" value="<?php echo $nama_produk;?>">
+															</div>
+														</div>
+														<div class="col-md-6 pr-0">
+															<div class="form-group form-group-default">
+																<label for="exampleFormControlSelect2">Jenis Produk</label>
+																<select class="form-control" name="jenis_produk" id="exampleFormControlSelect2">
+																	<option value="1">Paket</option>
+																	<option value="2">Satuan</option>
+																</select>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group form-group-default">
+																<label>Harga</label>
+																<input id="harga" name="harga" type="number" class="form-control" placeholder="Masukkan Harga" value="<?php echo $harga;?>">
+															</div>
+														</div>
+													</div>
+											</div>
+
+											<div class="modal-footer no-bd">
+												<button type="submit" id="addRowButton" class="btn btn-primary">Edit</button>
+												<button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+											</div>
+											</form>
+										</div>
+									</div>
+								</div>
+								<?php endforeach;?>
+								<!-- END MODAL Edit BARANG -->
+
 				     <!-- ============ MODAL HAPUS BARANG =============== -->
+						 <?php
+						 foreach($produk as $p):
+								 $id_produk=$p->id_produk;
+								 $nama_produk=$p->nama_produk;
+								 $jenis_produk=$p->jenis_produk;
+								 $harga=$p->harga;
+						 ?>
 				        <div class="modal fade" id="modal_hapus<?php echo $id_produk;?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
 				            <div class="modal-dialog">
 				            <div class="modal-content">
