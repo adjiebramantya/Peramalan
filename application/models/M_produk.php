@@ -1,7 +1,7 @@
 <?php
 class M_produk extends CI_Model{
 	function tampil_produk(){
-		$this->db->select('produk.*, jenis_produk.nama_jenis as jenis_produk');
+		$this->db->select('produk.*, produk.jenis_produk as id_jenis, jenis_produk.nama_jenis as jenis_produk');
 		$this->db->from('produk');
 		$this->db->join('jenis_produk', 'jenis_produk.id_jenis = produk.jenis_produk');
 		return $this->db->get();

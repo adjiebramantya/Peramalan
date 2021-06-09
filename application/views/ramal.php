@@ -56,7 +56,6 @@
 													<th>Nomor</th>
 													<th>Nama Produk</th>
 													<th style="width: 15%">Jenis Produk</th>
-													<th style="width: 15%">Harga</th>
 													<th style="width: 10%">Action</th>
 												</tr>
 											</thead>
@@ -65,7 +64,6 @@
 													<th>Nomor</th>
 													<th>Nama Produk</th>
 													<th>Jenis Produk</th>
-													<th>Harga</th>
 													<th>Action</th>
 												</tr>
 											</tfoot>
@@ -78,7 +76,6 @@
 													<td><?php echo $no++ ?></td>
 													<td><?php echo $p->nama_produk ?></td>
 													<td><?php echo $p->jenis_produk ?></td>
-													<td>Rp. <?php echo number_format($p->harga) ?></td>
 													<td>
 														<div class="form-button-action">
 															<a type="button" data-toggle="modal" title="" data-target="#modal_edit<?php echo $p->id_produk?>" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">

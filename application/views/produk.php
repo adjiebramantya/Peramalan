@@ -165,6 +165,7 @@
 								<?php
 								foreach($produk as $p):
 										$id_produk=$p->id_produk;
+										$id_jenis=$p->id_jenis;
 										$nama_produk=$p->nama_produk;
 										$jenis_produk=$p->jenis_produk;
 										$harga=$p->harga;
