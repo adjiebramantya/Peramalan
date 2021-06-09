@@ -118,6 +118,38 @@
 										</div>
 									</div>
 									<!-- end Modal -->
+									<form action="<?= base_url('barangmasuk/barang_masuk')?>" method="POST">
+									<div class="col-md-4">
+										<div class="form-group form-group-default">
+											<label>Bulan</label>
+											<select class="form-control" name="bulan" id="exampleFormControlSelect2">
+												<option value="01">Januari</option>
+												<option value="02">Februari</option>
+												<option value="03">Maret</option>
+												<option value="04">April</option>
+												<option value="05">Mei</option>
+												<option value="06">Juni</option>
+												<option value="07">Juli</option>
+												<option value="08">Agustus</option>
+												<option value="09">September</option>
+												<option value="10">Oktober</option>
+												<option value="11">November</option>
+												<option value="12">Desember</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group form-group-default">
+											<label>Tahun</label>
+											<select class="form-control" name="tahun" id="exampleFormControlSelect2">
+												<?php foreach ($tahun as $t): ?>
+													<option value="<?php echo $t->tanggal; ?>"><?php echo $t->tanggal; ?></option>
+												<?php endforeach; ?>
+											</select>
+										</div>
+									</div>
+									<button type="submit" id="addRowButton" class="btn btn-primary">Cari</button>
+									</form>
 
 									<div class="table-responsive">
 										<table id="add-row" class="display table table-striped table-hover" >
@@ -137,27 +169,8 @@
 													<th style="width: 10%">Action</th>
 												</tr>
 											</tfoot>
-											<tbody>
-												<?php
-												$no = 1;
-												foreach($barangMasuk as $p){
-												?>
-												<tr>
-													<td><?php echo $p->tanggal ?></td>
-													<td><?php echo $p->nama_produk ?></td>
-													<td><?php echo $p->jumlah ?></td>
-													<td>
-														<div class="form-button-action">
-															<a type="button" data-toggle="modal" title="" data-target="#modal_edit<?php echo $p->id_masuk?>" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</a>
-															<a type="button" data-toggle="modal" title="" data-target="#modal_hapus<?php echo $p->masuk?>" class="btn btn-link btn-danger" data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</a>
-														</div>>
-													</td>
-												</tr>
-											<?php } ?>
+											<tbody id=show_data>
+
 											</tbody>
 										</table>
 									</div>
@@ -259,6 +272,46 @@
 		$(document).ready(function() {
 				$('#js-example-basic-single').select2({width: 'resolve'});
 		});
+
+		$(document).ready(function(){
+        tampil_data_barang();   //pemanggilan fungsi tampil barang.
+
+        $('#add-row').dataTable();
+
+        //fungsi tampil barang
+        function tampil_data_barang(){
+            $.ajax({
+                type  : 'ajax',
+                url   : '<?php echo base_url()?>barangMasuk/barang_masuk',
+                async : false,
+                dataType : 'json',
+                success : function(data){
+                    var html = '';
+                    var i;
+                    for(i=0; i<data.length; i++){
+                        html += '<tr>'+
+                                '<td>'+data[i].tanggal+'</td>'+
+                                '<td>'+data[i].nama_produk+'</td>'+
+                                '<td>'+data[i].jumlah+'</td>'+
+																'<td>
+																	<div class="form-button-action">
+																		<a type="button" data-toggle="modal" title="" data-target="#modal_edit'+data[i].id_masuk+'" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
+																				<i class="fa fa-edit"></i>
+																		</a>
+																		<a type="button" data-toggle="modal" title="" data-target="#modal_hapus'+data[i].id_masuk+'" class="btn btn-link btn-danger" data-original-title="Remove">
+																				<i class="fa fa-times"></i>
+																		</a>
+																	</div>
+																</td>'+
+                                '</tr>';
+                    }
+                    $('#show_data').html(html);
+                }
+
+            });
+        }
+
+    });
   </script>
 
 

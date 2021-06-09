@@ -15,8 +15,16 @@ class Barangmasuk extends CI_Controller {
 	{
 		$data['orderBySatuan'] = $this->M_produk->orderBySatuan()->result();
 		$data['orderByPaket'] = $this->M_produk->orderByPaket()->result();
-		$data['barangMasuk'] = $this->M_barangMasuk->tampil_barangMasuk()->result();
+		$data['tahun'] = $this->M_barangMasuk->tahun()->result();
+		// $data['barangMasuk'] = $this->M_barangMasuk->tampil_barangMasuk()->result();
 		$this->load->view('barangMasuk',$data);
+	}
+
+	public function barang_masuk(){
+		$bulan = $this->input->post('bulan');
+		$tahun = $this->input->post('tahun');
+		$data = $this->M_barangMasuk->rinci_barangMasuk($bulan,$tahun)->result();
+		echo json_encode($data);
 	}
 
 	function tambah_barangMasuk(){
