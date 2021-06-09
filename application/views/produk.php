@@ -249,8 +249,8 @@
 				                </div>
 				                <div class="modal-footer">
 				                    <!-- <input type="hidden" name="kode_barang" value=""> -->
+														<button type="submit" class="btn btn-danger">Hapus</button>
 				                    <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
-				                    <button type="submit" class="btn btn-danger">Hapus</button>
 				                </div>
 				            </form>
 				            </div>
