@@ -3,9 +3,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Ramal extends CI_Controller {
 
+	function __construct(){
+			parent::__construct();
+			$this->load->model('M_produk');
+			$this->load->helper('url');
+			$this->load->library('form_validation');
+	}
+
 	public function index()
 	{
-		$this->load->view('ramal');
+		$data['produk'] = $this->M_produk->tampil_produk()->result();
+		$this->load->view('ramal',$data);
 	}
 
 	public function ramal_produk(){

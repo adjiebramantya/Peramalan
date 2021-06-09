@@ -117,12 +117,12 @@
 											</div>
 										</div>
 									</div>
+									<!-- end Modal -->
 
 									<div class="table-responsive">
 										<table id="add-row" class="display table table-striped table-hover" >
 											<thead>
 												<tr>
-													<th>No.</th>
 													<th>Tanggal</th>
 													<th>Nama Produk</th>
 													<th>Jumlah</th>
@@ -131,7 +131,6 @@
 											</thead>
 											<tfoot>
 												<tr>
-													<th>No.</th>
 													<th>Tanggal</th>
 													<th>Nama Produk</th>
 													<th>Jumlah</th>
@@ -141,28 +140,100 @@
 											<tbody>
 												<?php
 												$no = 1;
-												foreach($jumlah_transaksi as $p){
+												foreach($barangMasuk as $p){
 												?>
 												<tr>
-													<td><?php echo $no++ ?></td>
 													<td><?php echo $p->tanggal ?></td>
 													<td><?php echo $p->nama_produk ?></td>
 													<td><?php echo $p->jumlah ?></td>
 													<td>
 														<div class="form-button-action">
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
+															<a type="button" data-toggle="modal" title="" data-target="#modal_edit<?php echo $p->id_masuk?>" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
 																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
+															</a>
+															<a type="button" data-toggle="modal" title="" data-target="#modal_hapus<?php echo $p->masuk?>" class="btn btn-link btn-danger" data-original-title="Remove">
 																<i class="fa fa-times"></i>
-															</button>
-														</div>
+															</a>
+														</div>>
 													</td>
 												</tr>
 											<?php } ?>
 											</tbody>
 										</table>
 									</div>
+
+									<!-- Modal Edit -->
+									<?php
+									foreach($barangMasuk as $p):
+											$id_masuk=$p->id_masuk;
+											$tanggal=$p->tanggal;
+											$id_produk=$p->id_produk;
+											$jumlah=$p->jumlah;
+									?>
+
+									<div class="modal fade" id="modal_edit<?php echo $id_masuk;?>" tabindex="-1" role="dialog" aria-hidden="true">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header no-bd">
+													<h5 class="modal-title">
+														<span class="fw-mediumbold">
+														Edit </span>
+														<span class="fw-light">
+														Barang Masuk
+														</span>
+													</h5>
+													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<form action="<?= base_url('barangmasuk/tambah_barangMasuk')?>" method="POST">
+														<div class="row">
+															<div class="col-sm-12">
+																<div class="form-group form-group-default">
+																	<label>Nama Produk</label>
+																	<select id="js-example-basic-single" name="id_produk" style="width: 100%">
+																		<?php foreach($barangMasuk as $p){ ?>
+																		<option<?php if($p->id_masuk== "$id_masuk"){ echo 'selected="selected"'; } ?> value="<?php echo $p->id_masuk ?>"><?php echo $p->nama_produk?> </option>
+																		<?php } ?>
+																		<!-- <option value="">&nbsp;</option> -->
+																		<optgroup label="Satuan">
+																			<?php foreach($orderBySatuan as $satuan){ ?>
+																				<option value="<?php echo $satuan->id_produk; ?>"><?php echo $satuan->nama_produk; ?></option>
+																			<?php } ?>
+																		</optgroup>
+																		<optgroup label="Paket">
+																			<?php foreach($orderByPaket as $paket){ ?>
+																				<option value="<?php echo $paket->id_produk; ?>"><?php echo $paket->nama_produk; ?></option>
+																			<?php } ?>
+																		</optgroup>
+																	</select>
+																</div>
+															</div>
+															<div class="col-md-6">
+																<div class="form-group form-group-default">
+																	<label>Tanggal</label>
+																	<input id="tanggal" name="tanggal" type="date" class="form-control" placeholder="Masukkan Tanggal">
+																</div>
+															</div>
+															<div class="col-md-6">
+																<div class="form-group form-group-default">
+																	<label>Jumlah</label>
+																	<input id="jumlah" name="jumlah" type="number" class="form-control" placeholder="Masukkan Stok" value="1">
+																</div>
+															</div>
+														</div>
+												</div>
+												<div class="modal-footer no-bd">
+													<button type="submit" id="addRowButton" class="btn btn-primary">Edit</button>
+													<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+												</div>
+												</form>
+											</div>
+										</div>
+									</div>
+									<?php endforeach;?>
+									<!-- end Modal -->
 								</div>
 							</div>
 						</div>

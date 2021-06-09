@@ -1,7 +1,7 @@
 <?php
 class M_barangMasuk extends CI_Model{
 	function tampil_barangMasuk(){
-		$this->db->select("barang_masuk.*, produk.nama_produk as nama_produk, DATE_FORMAT(tanggal, '%d %M %Y') as tanggal");
+		$this->db->select("barang_masuk.*, produk.nama_produk as nama_produk, DATE_FORMAT(tanggal, '%d/%m/%Y') as tanggal");
 		$this->db->from('barang_masuk');
 		$this->db->join('produk', 'barang_masuk.id_produk = produk.id_produk');
 		return $this->db->get();
