@@ -23,8 +23,18 @@ class Barangmasuk extends CI_Controller {
 	public function barang_masuk(){
 		$bulan = $this->input->post('bulan');
 		$tahun = $this->input->post('tahun');
-		$data = $this->M_barangMasuk->rinci_barangMasuk($bulan,$tahun)->result();
-		echo json_encode($data);
+		// $data = $this->M_barangMasuk->rinci_barangMasuk($bulan,$tahun)->result();
+		$data = $this->M_barangMasuk->tampil_barangMasuk()->result();
+ 		$decode = json_encode($data, JSON_UNESCAPED_SLASHES);
+		 echo '<pre>'; print_r($decode); echo '</pre>';
+
+    // foreach ($json as $value) {
+    //     echo $value['id_masuk']."<br/>";
+    //     echo $value['tanggal']."<br/>";
+    //     echo $value['nama_produk']."<br/>";
+    //     echo $value['jumlah']."<br/>";
+    //     echo "<br/>";
+    // }
 	}
 
 	function tambah_barangMasuk(){

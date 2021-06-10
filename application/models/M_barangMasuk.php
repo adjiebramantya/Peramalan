@@ -12,7 +12,7 @@ class M_barangMasuk extends CI_Model{
 		$this->db->from('barang_masuk');
 		$this->db->join('produk', 'barang_masuk.id_produk = produk.id_produk');
 		$this->db->where('month(tanggal)',$bulan);
-		$this->db->where('year(tanggal)',$bulan);
+		$this->db->where('year(tanggal)',$tahun);
 		return $this->db->get();
 	}
 
