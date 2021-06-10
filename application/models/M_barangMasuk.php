@@ -8,12 +8,15 @@ class M_barangMasuk extends CI_Model{
 	}
 
 	function rinci_barangMasuk($bulan,$tahun){
-		$this->db->select("barang_masuk.*, produk.nama_produk as nama_produk, DATE_FORMAT(tanggal, '%d/%m/%Y') as tanggal");
-		$this->db->from('barang_masuk');
-		$this->db->join('produk', 'barang_masuk.id_produk = produk.id_produk');
-		$this->db->where('month(tanggal)',$bulan);
-		$this->db->where('year(tanggal)',$tahun);
-		return $this->db->get();
+		// $this->db->select("barang_masuk.*, produk.nama_produk as nama_produk, DATE_FORMAT(tanggal, '%d/%m/%Y') as tanggal");
+		// $this->db->from('barang_masuk');
+		// $this->db->join('produk', 'barang_masuk.id_produk = produk.id_produk');
+		// $this->db->where('month(tanggal)',$bulan);
+		// $this->db->where('year(tanggal)',$tahun);
+		$query= $this->db->query("SELECT barang_masuk.*, produk.nama_produk as nama_produk, DATE_FORMAT(tanggal, '%d/%m/%Y') as tanggal
+															FROM barang_masuk JOIN produk
+															WHERE barang_masuk.id_produk = produk.id_produk AND month(tanggal)='$bulan' AND year(tanggal)='$tahun'");
+		return $query;
 	}
 
 	function tahun(){

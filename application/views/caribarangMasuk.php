@@ -50,25 +50,70 @@
 							<div class="card">
 								<div class="card-header">
 									<div class="d-flex align-items-center">
-										<h4 class="card-title">Barang Masuk</h4>
-										<button class="btn btn-success btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
-											<i class="fa fa-plus"></i>
-											Barang Masuk
-										</button>
+										<h4 class="card-title">Hasil Sorting Barang Masuk</h4>
 									</div>
 								</div>
 								<div class="card-body">
+									<div class="table-responsive">
+										<table id="add-row" class="display table table-striped table-hover" >
+											<thead>
+												<tr>
+													<th>Tanggal</th>
+													<th>Nama Produk</th>
+													<th>Jumlah</th>
+													<th style="width: 10%">Action</th>
+												</tr>
+											</thead>
+											<tfoot>
+												<tr>
+													<th>Tanggal</th>
+													<th>Nama Produk</th>
+													<th>Jumlah</th>
+													<th style="width: 10%">Action</th>
+												</tr>
+											</tfoot>
+											<tbody>
+												<?php
+												foreach($caribarangMasuk as $p){
+												?>
+												<tr>
+													<td><?php echo $p->tanggal ?></td>
+													<td><?php echo $p->nama_produk ?></td>
+													<td><?php echo $p->jumlah ?></td>
+													<td>
+														<div class="form-button-action">
+															<a type="button" data-toggle="modal" title="" data-target="#modal_edit<?php echo $p->id_masuk?>" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
+																<i class="fa fa-edit"></i>
+															</a>
+															<a type="button" data-toggle="modal" title="" data-target="#modal_hapus<?php echo $p->id_masuk?>" class="btn btn-link btn-danger" data-original-title="Remove">
+																<i class="fa fa-times"></i>
+															</a>
+														</div>
+													</td>
+												</tr>
+												<?php } ?>
+											</tbody>
+										</table>
+									</div>
 
-									<!-- Modal -->
-									<div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
+									<!-- Modal Edit -->
+									<?php
+									foreach($caribarangMasuk as $p):
+											$id_masuk=$p->id_masuk;
+											$tanggal=$p->tanggal;
+											$id_produk=$p->id_produk;
+											$jumlah=$p->jumlah;
+									?>
+
+									<div class="modal fade" id="modal_edit<?php echo $id_masuk;?>" tabindex="-1" role="dialog" aria-hidden="true">
 										<div class="modal-dialog" role="document">
 											<div class="modal-content">
 												<div class="modal-header no-bd">
 													<h5 class="modal-title">
 														<span class="fw-mediumbold">
-														Barang</span>
+														Edit </span>
 														<span class="fw-light">
-														Masuk
+														Barang Masuk
 														</span>
 													</h5>
 													<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -82,7 +127,10 @@
 																<div class="form-group form-group-default">
 																	<label>Nama Produk</label>
 																	<select id="js-example-basic-single" name="id_produk" style="width: 100%">
-																		<option value="">&nbsp;</option>
+																		<?php foreach($barangMasuk as $p){ ?>
+																		<option<?php if($p->id_masuk== "$id_masuk"){ echo 'selected="selected"'; } ?> value="<?php echo $p->id_masuk ?>"><?php echo $p->nama_produk?> </option>
+																		<?php } ?>
+																		<!-- <option value="">&nbsp;</option> -->
 																		<optgroup label="Satuan">
 																			<?php foreach($orderBySatuan as $satuan){ ?>
 																				<option value="<?php echo $satuan->id_produk; ?>"><?php echo $satuan->nama_produk; ?></option>
@@ -111,75 +159,48 @@
 														</div>
 												</div>
 												<div class="modal-footer no-bd">
-													<button type="submit" id="addRowButton" class="btn btn-primary">Tambah</button>
+													<button type="submit" id="addRowButton" class="btn btn-primary">Edit</button>
 													<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
 												</div>
 												</form>
 											</div>
 										</div>
 									</div>
+									<?php endforeach;?>
 									<!-- end Modal -->
 
-									<form action="<?= base_url('barangmasuk/barang_masuk')?>" method="POST">
-										<div class="row">
-											<div class="col-md-6">
-												<div class="form-group form-group-default">
-													<label>Bulan</label>
-													<select class="form-control" name="bulan" id="exampleFormControlSelect2">
-														<option value="01">Januari</option>
-														<option value="02">Februari</option>
-														<option value="03">Maret</option>
-														<option value="04">April</option>
-														<option value="05">Mei</option>
-														<option value="06">Juni</option>
-														<option value="07">Juli</option>
-														<option value="08">Agustus</option>
-														<option value="09">September</option>
-														<option value="10">Oktober</option>
-														<option value="11">November</option>
-														<option value="12">Desember</option>
-													</select>
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="form-group form-group-default">
-													<label>Tahun</label>
-													<select class="form-control" name="tahun" id="exampleFormControlSelect2">
-														<?php foreach ($tahun as $t): ?>
-															<option value="<?php echo $t->tanggal; ?>"><?php echo $t->tanggal; ?></option>
-														<?php endforeach; ?>
-													</select>
-												</div>
-											</div>
-										</div>
-										<div class="row justify-content-center">
-											<button type="submit" id="addRowButton" class="btn btn-primary">Cari</button>
-										</div>
-									</form>
-
-									<!-- <div class="table-responsive">
-										<table id="add-row" class="display table table-striped table-hover" >
-											<thead>
-												<tr>
-													<th>Tanggal</th>
-													<th>Nama Produk</th>
-													<th>Jumlah</th>
-													<th style="width: 10%">Action</th>
-												</tr>
-											</thead>
-											<tfoot>
-												<tr>
-													<th>Tanggal</th>
-													<th>Nama Produk</th>
-													<th>Jumlah</th>
-													<th style="width: 10%">Action</th>
-												</tr>
-											</tfoot>
-											<tbody >
-
-											</tbody>
-										</table>
-									</div> -->
+									<!-- ============ MODAL HAPUS BARANG =============== -->
+		 						 <?php
+								 foreach($caribarangMasuk as $p):
+										 $id_masuk=$p->id_masuk;
+										 $tanggal=$p->tanggal;
+										 $nama_produk=$p->nama_produk;
+										 $jumlah=$p->jumlah;
+		 						 ?>
+		 				        <div class="modal fade" id="modal_hapus<?php echo $id_masuk;?>" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
+		 				            <div class="modal-dialog">
+		 				            <div class="modal-content">
+		 											<div class="modal-header">
+		 												<h5 class="modal-title">Hapus Produk</h5>
+		 												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		 													<span aria-hidden="true">&times;</span>
+		 												</button>
+		 											</div
+		 				            <form class="form-horizontal" method="post" action="<?= base_url('barangmasuk/hapus_produk/<?php echo $id_masuk?>')?>">
+		 				                <div class="modal-body">
+		 				                    <p>Anda yakin mau menghapus <b><?php echo $nama_produk;?></b></p>
+		 				                </div>
+		 				                <div class="modal-footer">
+		 				                    <!-- <input type="hidden" name="kode_barang" value=""> -->
+		 														<button type="submit" class="btn btn-danger">Hapus</button>
+		 				                    <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
+		 				                </div>
+		 				            </form>
+		 				            </div>
+		 				            </div>
+		 				        </div>
+		 				    		<?php endforeach;?>
+		 				    		<!-- END MODAL HAPUS BARANG -->
 								</div>
 							</div>
 						</div>

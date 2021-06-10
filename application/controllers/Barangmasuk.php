@@ -23,10 +23,15 @@ class Barangmasuk extends CI_Controller {
 	public function barang_masuk(){
 		$bulan = $this->input->post('bulan');
 		$tahun = $this->input->post('tahun');
-		// $data = $this->M_barangMasuk->rinci_barangMasuk($bulan,$tahun)->result();
-		$data = $this->M_barangMasuk->tampil_barangMasuk()->result();
- 		$decode = json_encode($data, JSON_UNESCAPED_SLASHES);
-		 echo '<pre>'; print_r($decode); echo '</pre>';
+
+		$data['tahun'] = $this->M_barangMasuk->tahun()->result();
+		$data['caribarangMasuk'] = $this->M_barangMasuk->rinci_barangMasuk($bulan,$tahun)->result();
+		// $data = $this->M_barangMasuk->tampil_barangMasuk()->result();
+		$this->load->view('caribarangMasuk',$data);
+
+		// echo '<pre>'; var_dump($data); echo '</pre>';
+ 		// echo json_encode($data, JSON_UNESCAPED_SLASHES);
+		 // echo '<pre>'; print_r($decode); echo '</pre>';
 
     // foreach ($json as $value) {
     //     echo $value['id_masuk']."<br/>";
@@ -49,6 +54,13 @@ class Barangmasuk extends CI_Controller {
 			);
 		$this->M_barangMasuk->input_data($data,'barang_masuk');
 		redirect('Barangmasuk');
+	}
+
+	// HAPUS PRODUK
+	public function hapus_barangMasuk($id_masuk){
+		$where = array('id_masuk' => $id_masuk);
+		$this->M_barangMasuk->hapus_data($where,'barang_masuk');
+		redirect('barangmasuk');
 	}
 
 }
