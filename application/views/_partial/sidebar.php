@@ -8,8 +8,8 @@
         <div class="info">
           <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
             <span>
-              Hizrian
-              <span class="user-level">Administrator</span>
+              <?php echo $this->session->userdata('nama'); ?>
+              <span class="user-level"><?php echo $this->session->userdata('username'); ?></span>
               <span class="caret"></span>
             </span>
           </a>
@@ -22,7 +22,7 @@
                 </a>
               </li>
               <li>
-                <a href="#logout">
+                <a href="<?= base_url('Auth/logout')?>">
                   <span class="link-collapse">Log Out</span>
                 </a>
               </li>

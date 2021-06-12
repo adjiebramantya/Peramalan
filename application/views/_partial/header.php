@@ -36,14 +36,15 @@
                 <div class="user-box">
                   <div class="avatar-lg"><img src="<?php echo base_url()?>assets/img/profile.jpg" alt="image profile" class="avatar-img rounded"></div>
                   <div class="u-text">
-                    <h4>Hizrian</h4>
-                    <p class="text-muted">hello@example.com</p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                    <?php echo $this->session->userdata('nama'); ?>
+                    <p class="text-muted"><?php echo $this->session->userdata('email'); ?></p>
+                    <a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
                   </div>
                 </div>
               </li>
               <li>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Logout</a>
+                <a class="dropdown-item" href="<?= base_url('Auth/logout')?>">Logout</a>
               </li>
             </div>
           </ul>

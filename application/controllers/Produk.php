@@ -8,6 +8,10 @@ class Produk extends CI_Controller {
 			$this->load->model('M_produk');
 			$this->load->helper('url');
 			$this->load->library('form_validation');
+
+			if($this->session->userdata('status') != "login"){
+			redirect(base_url("Auth"));
+			}
 	}
 
 	//TAMPIL PRODUK
