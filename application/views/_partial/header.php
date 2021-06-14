@@ -38,7 +38,7 @@
                   <div class="u-text">
                     <?php echo $this->session->userdata('nama'); ?>
                     <p class="text-muted"><?php echo $this->session->userdata('email'); ?></p>
-                    <a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                    <a href="<?= base_url('profil')?>" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
                   </div>
                 </div>
               </li>

@@ -17,7 +17,7 @@
 
           <div class="collapse in" id="collapseExample">
             <ul class="nav">
-                <a href="#edit">
+                <a href="<?= base_url('profil')?>">
                   <span class="link-collapse">Edit Profile</span>
                 </a>
               </li>

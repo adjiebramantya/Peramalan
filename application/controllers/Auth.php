@@ -35,6 +35,7 @@ class Auth extends CI_Controller {
 		if($cek > 0){
 
 			$data_session = array(
+				'id_user'=> $data->id_user,
 				'nama' => $data->nama,
 				'email'=> $data->email,
 				'username' => $username,
