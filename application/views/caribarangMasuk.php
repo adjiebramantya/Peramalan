@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>Produk - Peramalan</title>
+	<title>Barang Masuk - Peramalan</title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="<?php echo base_url()?>assets/img/icon.ico" type="image/x-icon"/>
 
@@ -54,6 +54,15 @@
 									</div>
 								</div>
 								<div class="card-body">
+
+									<?php if ($this->session->flashdata('success')): ?>
+										<div class="alert alert-success alert-dismissible fade show" role="alert">
+												<?= $this->session->flashdata('success'); ?>
+												<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+									<?php endif; ?>
 									<div class="table-responsive">
 										<table id="add-row" class="display table table-striped table-hover" >
 											<thead>

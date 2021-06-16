@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>Dashboard - Peramalan</title>
+	<title>Login - Peramalan</title>
 	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 	<link rel="icon" href="<?php echo base_url()?>assets/img/icon.ico" type="image/x-icon"/>
 
@@ -12,7 +12,17 @@
 <body class="login">
 	<div class="wrapper wrapper-login">
 		<div class="container container-login animated fadeIn">
-			<h3 class="text-center">Sign In To Admin</h3>
+
+			<h2 class="text-center">Sistem Peramalan</h2>
+			<h3 class="text-center">Silahkan Login</h3>
+			<?php if ($this->session->flashdata('success')): ?>
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+						<?= $this->session->flashdata('success'); ?>
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			<?php endif; ?>
 			<form class="" action="<?= base_url('Auth/aksi_login')?>" method="post">
 				<div class="login-form">
 					<div class="form-group form-floating-label">
@@ -31,16 +41,14 @@
 							<input type="checkbox" class="custom-control-input" id="rememberme">
 							<label class="custom-control-label" for="rememberme">Remember Me</label>
 						</div>
-
-						<a href="#" class="link float-right">Forget Password ?</a>
 					</div>
 					<div class="form-action mb-3">
-						<button type="submit" class="btn btn-primary btn-rounded btn-login">Sign In</button>
+						<button type="submit" class="btn btn-primary btn-rounded btn-login">Login</button>
 					</div>
-					<div class="login-account">
+					<!-- <div class="login-account">
 						<span class="msg">Don't have an account yet ?</span>
 						<a href="#" id="show-signup" class="link">Sign Up</a>
-					</div>
+					</div> -->
 				</div>
 			</form>
 		</div>

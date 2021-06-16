@@ -56,6 +56,8 @@ class Barangmasuk extends CI_Controller {
 			'tanggal' => $tanggal,
 			'jumlah' => $jumlah
 			);
+
+		$this->session->set_flashdata('success', 'Anda Berhasil Menambah data Barang Masuk');
 		$this->M_barangMasuk->input_data($data,'barang_masuk');
 		redirect('Barangmasuk');
 	}

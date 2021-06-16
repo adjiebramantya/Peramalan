@@ -36,6 +36,8 @@ class Produk extends CI_Controller {
 				'jenis_produk' => $jenis_produk,
 				'harga' => $harga
 				);
+
+			$this->session->set_flashdata('success', 'Anda Berhasil Menambah data Produk');
 			$this->M_produk->input_data($data,'produk');
 			redirect('produk');
 		}
@@ -69,6 +71,7 @@ class Produk extends CI_Controller {
 		'id_produk' => $id_produk
 	);
 
+	$this->session->set_flashdata('success', 'Anda Berhasil Mengubah data Produk');
 	$this->M_produk->update_data($where,$data,'produk');
 	redirect('produk');
 	}

@@ -48,7 +48,8 @@ class Auth extends CI_Controller {
 
 
 		}else{
-			echo "Username dan password salah !";
+				$this->session->set_flashdata('success', 'Password atau Username salah! Silahkan coba lagi');
+				redirect(base_url('Auth'));
 		}
 	}
 
