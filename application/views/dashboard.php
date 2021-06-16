@@ -36,15 +36,27 @@
 									<div class="card-title">Statistik Keseluruhan</div>
 									<div class="d-flex flex-wrap justify-content-around pb-2 pt-4">
 										<div class="px-2 pb-2 pb-md-0 text-center">
-											<div id="circles-1"></div>
+											<?php if (isset($jumlah_produk)): ?>
+												<div>
+													<h1 class="fw-bold mt-4 mb-0"><?php echo $jumlah_produk->produk; ?></h1>
+												</div>
+											<?php endif; ?>
 											<h6 class="fw-bold mt-3 mb-0">Produk</h6>
 										</div>
 										<div class="px-2 pb-2 pb-md-0 text-center">
-											<div id="circles-2"></div>
+											<?php if (isset($nama_produk)): ?>
+												<div>
+													<h1 class="fw-bold mt-4 mb-0"><?php echo $nama_produk->produk; ?></h1>
+												</div>
+											<?php endif; ?>
 											<h6 class="fw-bold mt-3 mb-0">Produk terlaris</h6>
 										</div>
 										<div class="px-2 pb-2 pb-md-0 text-center">
-											<div id="circles-3"></div>
+											<?php if (isset($jumlah_bulan)): ?>
+												<div>
+													<h1 class="fw-bold mt-4 mb-0"><?php echo $jumlah_bulan; ?></h1>
+												</div>
+											<?php endif; ?>
 											<h6 class="fw-bold mt-3 mb-0">Bulan Data yang disimpan</h6>
 										</div>
 									</div>

@@ -7,6 +7,19 @@ class M_produk extends CI_Model{
 		return $this->db->get();
 	}
 
+	function jumlah_produk(){
+		$this->db->select('count(id_produk) as produk');
+		$this->db->from('produk');
+		return $this->db->get();
+	}
+
+	function nama_produk(){
+		$query= $this->db->query("SELECT produk.nama_produk as produk, sum(jumlah) as jumlah FROM barang_masuk JOIN produk
+															WHERE barang_masuk.id_produk= produk.id_produk
+															GROUP by  barang_masuk.id_produk ORDER BY jumlah  DESC");
+		return $query;
+	}
+
 	function orderBySatuan(){
 		$this->db->select('produk.*, jenis_produk.nama_jenis as jenis_produk');
 		$this->db->from('produk');

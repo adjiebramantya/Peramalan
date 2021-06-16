@@ -78,7 +78,7 @@
 									?>
 									<form action="<?= base_url('profil/edit_profil')?>" method="POST">
 										<div class="row">
-											<div class="col-md-6">
+											<div class="col-md-3">
 												<div class="form-group form-group-default" hidden>
 													<label>id</label>
 													<input id="id_user" name="id_user" type="text" class="form-control" placeholder="Masukkan id" value="<?php echo $id_user;?>">
@@ -105,6 +105,9 @@
 													<label>password</label>
 													<input id="password" name="password" type="password" class="form-control" placeholder="Kosongi, Jika password tidak ingin diganti.">
 												</div>
+											</div>
+											<div class="col-md-3">
+
 											</div>
 										</div>
 										<div class="row justify-content-center">

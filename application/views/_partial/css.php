@@ -14,3 +14,5 @@
 <!-- CSS Files -->
 <link rel="stylesheet" href="<?php echo base_url()?>assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="<?php echo base_url()?>assets/css/atlantis.css">
+
+<link rel="shortcut icon" href="<?php echo base_url()?>assets/img/icon.png">
