@@ -28,6 +28,10 @@ class Barangmasuk extends CI_Controller {
 		$bulan = $this->input->post('bulan');
 		$tahun = $this->input->post('tahun');
 
+		// $data['tampilBarangMasuk'] = $this->M_barangMasuk->tampil_barangMasuk()->result();
+		$data['produk'] = $this->M_produk->tampil_produk()->row();
+		$data['orderBySatuan'] = $this->M_produk->orderBySatuan()->result();
+		$data['orderByPaket'] = $this->M_produk->orderByPaket()->result();
 		$data['tahun'] = $this->M_barangMasuk->tahun()->result();
 		$data['caribarangMasuk'] = $this->M_barangMasuk->rinci_barangMasuk($bulan,$tahun)->result();
 		// $data = $this->M_barangMasuk->tampil_barangMasuk()->result();

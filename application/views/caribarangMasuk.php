@@ -111,6 +111,7 @@
 											$id_masuk=$p->id_masuk;
 											$tanggal=$p->tanggal;
 											$id_produk=$p->id_produk;
+											$nama_produk=$p->nama_produk;
 											$jumlah=$p->jumlah;
 									?>
 
@@ -135,11 +136,10 @@
 															<div class="col-sm-12">
 																<div class="form-group form-group-default">
 																	<label>Nama Produk</label>
-																	<select id="js-example-basic-single" name="id_produk" style="width: 100%">
-																		<?php foreach($barangMasuk as $p){ ?>
-																		<option<?php if($p->id_masuk== "$id_masuk"){ echo 'selected="selected"'; } ?> value="<?php echo $p->id_masuk ?>"><?php echo $p->nama_produk?> </option>
-																		<?php } ?>
-																		<!-- <option value="">&nbsp;</option> -->
+																	<select id="js-example-basic-single1" name="id_produk" style="width: 100%">
+																		<?php if (isset($produk)): ?>
+																				<option value="<?php echo $id_produk;?>" <?php if($produk->id_produk == $id_produk) echo 'selected="selected"';?> ><?php echo $nama_produk ?></option>
+																		<?php endif; ?>
 																		<optgroup label="Satuan">
 																			<?php foreach($orderBySatuan as $satuan){ ?>
 																				<option value="<?php echo $satuan->id_produk; ?>"><?php echo $satuan->nama_produk; ?></option>
@@ -156,13 +156,13 @@
 															<div class="col-md-6">
 																<div class="form-group form-group-default">
 																	<label>Tanggal</label>
-																	<input id="tanggal" name="tanggal" type="date" class="form-control" placeholder="Masukkan Tanggal">
+																	<input id="tanggal" name="tanggal" type="date" class="form-control" placeholder="Masukkan Tanggal" >
 																</div>
 															</div>
 															<div class="col-md-6">
 																<div class="form-group form-group-default">
 																	<label>Jumlah</label>
-																	<input id="jumlah" name="jumlah" type="number" class="form-control" placeholder="Masukkan Stok" value="1">
+																	<input id="jumlah" name="jumlah" type="number" class="form-control" placeholder="Masukkan Stok" value="<?php echo $jumlah ?>">
 																</div>
 															</div>
 														</div>
@@ -226,15 +226,16 @@
       <?php $this->load->view('_partial/jsNoQuery') ?>
 
   <script type="text/javascript">
-  // Add Row
+	//Select 2
+	$(document).ready(function() {
+			$('#js-example-basic-single1').select2({width: 'resolve'});
+	});
+
+	// Add Row
     $('#add-row').DataTable({
       "pageLength": 10,
     });
 
-		//Select 2
-		$(document).ready(function() {
-				$('#js-example-basic-single').select2({width: 'resolve'});
-		});
 
   </script>
 
