@@ -67,31 +67,51 @@ class Ramal extends CI_Controller {
 		$nilaiAwal = array_slice( $aktual, 0,1);
 		$nilaiAwalInt = array_map('intval',$nilaiAwal);
 
-		for($i = 1;$i < count($aktualInt)+1;$i++)
-			{
+		//SMOOTHING 1
+			$s1[]= $nilaiAwalInt[0];
+			$s1Int = array_map('intval',$s1);
 
-				// echo $aktual[$i];
-				// echo "<br/>";
-				$s1 = array("");
-				$s1Int = array_map('intval',$s1);
-
-				if (empty($s1)) {
-					$s1Int[] = $nilaiAwalInt;
-
-				} else{
-
-					$s1Int[]= round(0.1 * $aktualInt[$i-1]+(1-0.1) * $s1Int[$i-1],2);
-
-					// echo $s1[$i];
-					// echo "<br/>";
+			for($i = 1;$i < count($aktualInt)+1;$i++)
+				{
+					$s1Int[$i]= round(0.1 * $aktualInt[$i-1]+(1-0.1) * $s1Int[$i-1],2);
 				}
 
+		//SMOOTHING 2
+			$s2[]= $nilaiAwalInt[0];
+			$s2Int = array_map('intval',$s2);
 
-			}
+			for($i = 1;$i < count($s1Int);$i++)
+				{
+					$s2Int[$i]= round(0.1 * $s1Int[$i]+(1-0.1) * $s2Int[$i-1],2);
+				}
 
+		//SMOOTHING 3
+			$s3[]= $nilaiAwalInt[0];
+			$s3Int = array_map('intval',$s2);
+
+			for($i = 1;$i < count($s2Int);$i++)
+				{
+					$s3Int[$i]= round(0.1 * $s2Int[$i]+(1-0.1) * $s3Int[$i-1],2);
+				}
+		// echo "<pre>";
+		// 	print_r($nilaiAwalInt);
+		// echo "</pre>";
 		echo "<br>";
+		echo "<p>AKtual</p>";
 		echo "<pre>";
-			print_r($aktualInt[1-1]);
+			print_r($aktualInt);
+		echo "</pre>";
+		echo "<p>S1</p>";
+		echo "<pre>";
+			print_r($s1Int);
+		echo "</pre>";
+		echo "<p>S2</p>";
+		echo "<pre>";
+			print_r($s2Int);
+		echo "</pre>";
+		echo "<p>S3</p>";
+		echo "<pre>";
+			print_r($s3Int);
 		echo "</pre>";
 	}
 
