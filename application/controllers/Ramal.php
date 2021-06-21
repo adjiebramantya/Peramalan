@@ -93,6 +93,33 @@ class Ramal extends CI_Controller {
 				{
 					$s3Int[$i]= round(0.1 * $s2Int[$i]+(1-0.1) * $s3Int[$i-1],2);
 				}
+
+				//AT
+					$at = array();
+					$atInt = array_map('intval',$at);
+
+					for($i = 1;$i < count($s1Int);$i++)
+						{
+							$atInt[$i]= round(3 * $s1Int[$i] - 3 * $s2Int[$i] + $s3Int[$i],2);
+						}
+
+				//BT
+				$bt = array();
+				$btInt = array_map('intval',$bt);
+
+				for($i = 1;$i < count($s1Int);$i++)
+					{
+						$btInt[$i]= round(0.1/2*pow(1-0.1,2)*((6-5*0.1)*$s1Int[$i]-(10-8*0.1)*$s2Int[$i]+(4-3*0.1)*$s3Int[$i]),2);
+					}
+
+				//CT
+					$ct = array();
+					$ctInt = array_map('intval',$ct);
+
+					for($i = 1;$i < count($s1Int);$i++)
+						{
+							$ctInt[$i]= round(pow(0.1,2)/pow(1-0.1,2)*($s1Int[$i]-2*$s2Int[$i]+$s3Int[$i]),2);
+						}
 		// echo "<pre>";
 		// 	print_r($nilaiAwalInt);
 		// echo "</pre>";
@@ -112,6 +139,18 @@ class Ramal extends CI_Controller {
 		echo "<p>S3</p>";
 		echo "<pre>";
 			print_r($s3Int);
+		echo "</pre>";
+		echo "<p>at</p>";
+		echo "<pre>";
+			print_r($atInt);
+		echo "</pre>";
+		echo "<p>bt</p>";
+		echo "<pre>";
+			print_r($btInt);
+		echo "</pre>";
+		echo "<p>ct</p>";
+		echo "<pre>";
+			print_r($ctInt);
 		echo "</pre>";
 	}
 
