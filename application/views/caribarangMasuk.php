@@ -136,7 +136,7 @@
 															<div class="col-sm-12">
 																<div class="form-group form-group-default">
 																	<label>Nama Produk</label>
-																	<select id="js-example-basic-single1" name="id_produk" style="width: 100%">
+																	<select id="js-example-basic-single" name="id_produk" style="width: 100%">
 																		<?php if (isset($produk)): ?>
 																				<option value="<?php echo $id_produk;?>" <?php if($produk->id_produk == $id_produk) echo 'selected="selected"';?> ><?php echo $nama_produk ?></option>
 																		<?php endif; ?>
@@ -228,7 +228,7 @@
   <script type="text/javascript">
 	//Select 2
 	$(document).ready(function() {
-			$('#js-example-basic-single1').select2({width: 'resolve'});
+			$('#js-example-basic-single').select2({width: 'resolve'});
 	});
 
 	// Add Row

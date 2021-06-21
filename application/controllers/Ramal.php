@@ -29,7 +29,7 @@ class Ramal extends CI_Controller {
 		$awal = $this->db->query('SELECT tanggal FROM barang_masuk order by tanggal asc')->row();
 		$akhir = $this->db->query('SELECT tanggal FROM barang_masuk order by tanggal desc')->row();
 
-		$array = 1;
+
 		$starter = 0;
 		$lb = 0;
 
@@ -45,22 +45,54 @@ class Ramal extends CI_Controller {
 								$starter = 1;
 								break;
 						} else {
-								$detail = $this->db->query("SELECT produk.nama_produk as nama_produk, YEAR(tanggal) as tahun, MONTH(tanggal) as Bulan, SUM(jumlah) as jumlah FROM barang_masuk JOIN produk ON barang_masuk.id_produk= produk.id_produk WHERE barang_masuk.id_produk = 5 AND MONTH(tanggal) = '".sprintf("%02d", $b)."' AND YEAR(tanggal) = '".sprintf("%02d", $t)."' GROUP BY MONTH(tanggal), YEAR(tanggal) ORDER BY tanggal asc")->row();
+								$detail = $this->db->query("SELECT produk.nama_produk as nama_produk, YEAR(tanggal) as tahun, MONTH(tanggal) as Bulan, SUM(jumlah) as jumlah FROM barang_masuk JOIN produk ON barang_masuk.id_produk= produk.id_produk WHERE barang_masuk.id_produk = 16 AND MONTH(tanggal) = '".sprintf("%02d", $b)."' AND YEAR(tanggal) = '".sprintf("%02d", $t)."' GROUP BY MONTH(tanggal), YEAR(tanggal) ORDER BY tanggal asc")->row();
 
 								if ($t == date("Y", strtotime($akhir->tanggal)) && $b > date("m", strtotime($akhir->tanggal))) {
 										break;
 								} else {
 										if ($detail) {
-												echo $array.". ".sprintf("%02d", $b)."-".$t."==".$detail->nama_produk."|".$detail->jumlah."<br>";
+												//echo sprintf("%02d", $b)."-".$t."==".$detail->nama_produk."|".$detail->jumlah."<br>";
+												$aktual[]= $detail->jumlah;
 										} else {
-												echo $array.". ".sprintf("%02d", $b)."-".$t."==".""."|"."0"."<br>";
+												//echo sprintf("%02d", $b)."-".$t."==".""."|"."0"."<br>";
+												$aktual[]= 0;
 										}
-
-										$array++;
 								}
 						}
 				}
 		}
+
+		$aktualInt = array_map('intval',$aktual);
+
+		$nilaiAwal = array_slice( $aktual, 0,1);
+		$nilaiAwalInt = array_map('intval',$nilaiAwal);
+
+		for($i = 1;$i < count($aktualInt)+1;$i++)
+			{
+
+				// echo $aktual[$i];
+				// echo "<br/>";
+				$s1 = array("");
+				$s1Int = array_map('intval',$s1);
+
+				if (empty($s1)) {
+					$s1Int[] = $nilaiAwalInt;
+
+				} else{
+
+					$s1Int[]= round(0.1 * $aktualInt[$i-1]+(1-0.1) * $s1Int[$i-1],2);
+
+					// echo $s1[$i];
+					// echo "<br/>";
+				}
+
+
+			}
+
+		echo "<br>";
+		echo "<pre>";
+			print_r($aktualInt[1-1]);
+		echo "</pre>";
 	}
 
 }

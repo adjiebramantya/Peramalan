@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2021 at 07:17 AM
+-- Generation Time: Jun 21, 2021 at 07:52 AM
 -- Server version: 10.1.39-MariaDB
 -- PHP Version: 7.3.5
 
@@ -489,7 +489,7 @@ INSERT INTO `barang_masuk` (`id_masuk`, `tanggal`, `id_produk`, `jumlah`) VALUES
 (447, '2018-09-05', 111, 1),
 (448, '2018-09-05', 8, 4),
 (449, '2018-09-05', 18, 4),
-(450, '2018-06-05', 61, 2),
+(450, '2018-09-05', 61, 2),
 (451, '2018-09-06', 58, 1),
 (452, '2018-09-06', 47, 1),
 (453, '2018-09-06', 89, 1),
@@ -4901,7 +4901,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `email`, `nohp`, `nama`, `username`, `password`) VALUES
-(1, 'admin@gmail.com', '082228607806', 'admin', 'admin', '$2y$10$W/Fk4Do7P4LLQue9YEOy/uYNqxdjEvL.ss9Kd86uBHzTdbBZZJvG6 ');
+(2, 'admin@gmail.com', '082228607806', 'admin', 'admin', '0192023a7bbd73250516f069df18b500');
 
 --
 -- Indexes for dumped tables
@@ -4960,7 +4960,7 @@ ALTER TABLE `produk`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
