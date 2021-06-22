@@ -62,6 +62,8 @@ class Ramal extends CI_Controller {
 				}
 		}
 
+		$alpha = 0.1;
+
 		$aktualInt = array_map('intval',$aktual);
 
 		$nilaiAwal = array_slice( $aktual, 0,1);
@@ -73,7 +75,7 @@ class Ramal extends CI_Controller {
 
 			for($i = 1;$i < count($aktualInt)+1;$i++)
 				{
-					$s1Int[$i]= round(0.1 * $aktualInt[$i-1]+(1-0.1) * $s1Int[$i-1],2);
+					$s1Int[$i]= round($alpha * $aktualInt[$i-1]+(1-$alpha) * $s1Int[$i-1],2);
 				}
 
 		//SMOOTHING 2
@@ -82,7 +84,7 @@ class Ramal extends CI_Controller {
 
 			for($i = 1;$i < count($s1Int);$i++)
 				{
-					$s2Int[$i]= round(0.1 * $s1Int[$i]+(1-0.1) * $s2Int[$i-1],2);
+					$s2Int[$i]= round($alpha * $s1Int[$i]+(1-$alpha) * $s2Int[$i-1],2);
 				}
 
 		//SMOOTHING 3
@@ -91,7 +93,7 @@ class Ramal extends CI_Controller {
 
 			for($i = 1;$i < count($s2Int);$i++)
 				{
-					$s3Int[$i]= round(0.1 * $s2Int[$i]+(1-0.1) * $s3Int[$i-1],2);
+					$s3Int[$i]= round($alpha * $s2Int[$i]+(1-$alpha) * $s3Int[$i-1],2);
 				}
 
 				//AT
@@ -109,7 +111,7 @@ class Ramal extends CI_Controller {
 
 				for($i = 1;$i < count($s1Int);$i++)
 					{
-						$btInt[$i]= round(0.1/2*pow(1-0.1,2)*((6-5*0.1)*$s1Int[$i]-(10-8*0.1)*$s2Int[$i]+(4-3*0.1)*$s3Int[$i]),2);
+						$btInt[$i]= round($alpha/2*pow(1-$alpha,2)*((6-5*$alpha)*$s1Int[$i]-(10-8*$alpha)*$s2Int[$i]+(4-3*$alpha)*$s3Int[$i]),2);
 					}
 
 				//CT
@@ -118,8 +120,55 @@ class Ramal extends CI_Controller {
 
 					for($i = 1;$i < count($s1Int);$i++)
 						{
-							$ctInt[$i]= round(pow(0.1,2)/pow(1-0.1,2)*($s1Int[$i]-2*$s2Int[$i]+$s3Int[$i]),2);
+							$ctInt[$i]= round(pow($alpha,2)/pow(1-$alpha,2)*($s1Int[$i]-2*$s2Int[$i]+$s3Int[$i]),2);
 						}
+
+				//FT+M
+					$ft = array();
+					$ftInt = array_map('intval',$ft);
+
+					for($i = 1;$i < count($atInt)+1;$i++)
+						{
+							$ftInt[$i]= round($atInt[$i]+$btInt[$i]*1+1/2*$ctInt[$i]*pow(1,2),0);
+						}
+
+				//at-ft
+					$selisih = array();
+					$selisihInt = array_map('intval',$selisih);
+
+					for($i = 1;$i < count($aktualInt);$i++)
+						{
+							$selisihInt[$i]= $aktualInt[$i]-$ftInt[$i];
+						}
+
+				//(at-ft)2
+					$selisihPangkat = array();
+					$selisihPangkatInt = array_map('intval',$selisihPangkat);
+
+					for($i = 1;$i < count($selisihInt)+1;$i++)
+						{
+							$selisihPangkatInt[$i]= pow($selisihInt[$i],2);
+						}
+
+			//abs((at-ft)/at)*100
+				$selisihSeratus = array();
+				$selisihSeratusInt = array_map('intval',$selisihSeratus);
+
+				for($i = 1;$i < count($selisihInt)+1;$i++)
+					{
+						$selisihSeratusInt[$i]= abs($selisihInt[$i]/$aktualInt[$i]);
+					}
+
+			$jumlah= count(array_slice($aktualInt,1));
+			$MAD = array_sum(array_map("abs",$selisihInt));
+			$MSE = array_sum($selisihPangkatInt);
+			$MAPE = round(array_sum($selisihSeratusInt),3);
+
+			$hasilMAD = round($MAD / $jumlah,3);
+			$hasilMSE = round($MSE / ($jumlah-1),3);
+			$hasilMAPE= round($MAPE / $jumlah * 100,3);
+			$hasilKeseluruhan = $hasilMAD + $hasilMSE + $hasilMAPE;
+			$ratarataKesalahan = round($hasilKeseluruhan/3,3);
 		// echo "<pre>";
 		// 	print_r($nilaiAwalInt);
 		// echo "</pre>";
@@ -151,6 +200,46 @@ class Ramal extends CI_Controller {
 		echo "<p>ct</p>";
 		echo "<pre>";
 			print_r($ctInt);
+		echo "</pre>";
+		echo "<p>Ft+M</p>";
+		echo "<pre>";
+			print_r($ftInt);
+		echo "</pre>";
+		echo "<p>Selisih</p>";
+		echo "<pre>";
+			print_r($selisihInt);
+		echo "</pre>";
+		echo "<p>Selisih Absolute</p>";
+		echo "<pre>";
+			print_r(array_map("abs",$selisihInt));
+		echo "</pre>";
+		echo "<p>Selisih Pangkat</p>";
+		echo "<pre>";
+			print_r($selisihPangkatInt);
+		echo "</pre>";
+		echo "<p>Selisih Seratus</p>";
+		echo "<pre>";
+			print_r($selisihSeratusInt);
+		echo "</pre>";
+		echo "<p>MAD</p>";
+		echo "<pre>";
+			print_r($hasilMAD);
+		echo "</pre>";
+		echo "<p>MSE</p>";
+		echo "<pre>";
+			print_r($hasilMSE);
+		echo "</pre>";
+		echo "<p>MAPE</p>";
+		echo "<pre>";
+			print_r($hasilMAPE);
+		echo "</pre>";
+		echo "<p>Hasil Keseluruhan</p>";
+		echo "<pre>";
+			print_r($hasilKeseluruhan);
+		echo "</pre>";
+		echo "<p>Rata- Rata Kesalahan</p>";
+		echo "<pre>";
+			print_r($ratarataKesalahan);
 		echo "</pre>";
 	}
 
