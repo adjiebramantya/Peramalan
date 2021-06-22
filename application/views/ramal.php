@@ -78,7 +78,7 @@
 													<td><?php echo $p->jenis_produk ?></td>
 													<td>
 														<div class="form-button-action">
-															<a type="button" data-toggle="modal" title="" data-target="#modal_edit<?php echo $p->id_produk?>" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
+															<a href="<?= base_url('Ramal/ramal_produk/'.$p->id_produk.'')?>" type="button" title="" class="btn btn-link btn-primary btn-lg">
 																<i class="fa fa-chart-line"></i>
 															</a>
 														</div>

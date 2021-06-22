@@ -20,6 +20,11 @@ class M_produk extends CI_Model{
 		return $query;
 	}
 
+	function ramal_produk($id_produk){
+		$query= $this->db->get_where('produk', array('id_produk' => $id_produk));
+		return $query;
+	}
+
 	function orderBySatuan(){
 		$this->db->select('produk.*, jenis_produk.nama_jenis as jenis_produk');
 		$this->db->from('produk');

@@ -45,6 +45,234 @@
 					</div>
 					</div>
 				</div>
+
+				<!-- RUMUS TRIPLE EXPONENTIAL SMOOTHING -->
+				<?php
+
+				$awal = $this->db->query('SELECT tanggal FROM barang_masuk order by tanggal asc')->row();
+				$akhir = $this->db->query('SELECT tanggal FROM barang_masuk order by tanggal desc')->row();
+
+
+				$starter = 0;
+				$lb = 0;
+
+				for ($t = date("Y", strtotime($awal->tanggal)); $t <= date("Y", strtotime($akhir->tanggal)); $t++) {
+						if ($starter == 0) {
+								$lb = date("m", strtotime($awal->tanggal));
+						} else {
+								$lb = 1;
+						}
+
+						for ($b = $lb; $b <= 13; $b++) {
+								if ($b > 12) {
+										$starter = 1;
+										break;
+								} else {
+									if (isset($produk)) {
+										$id_produk = $produk->id_produk;
+									}
+
+										$detail = $this->db->query("SELECT produk.nama_produk as nama_produk, YEAR(tanggal) as tahun, MONTH(tanggal) as Bulan, SUM(jumlah) as jumlah FROM barang_masuk JOIN produk ON barang_masuk.id_produk= produk.id_produk WHERE barang_masuk.id_produk = '$id_produk' AND MONTH(tanggal) = '".sprintf("%02d", $b)."' AND YEAR(tanggal) = '".sprintf("%02d", $t)."' GROUP BY MONTH(tanggal), YEAR(tanggal) ORDER BY tanggal asc")->row();
+
+										if ($t == date("Y", strtotime($akhir->tanggal)) && $b > date("m", strtotime($akhir->tanggal))) {
+												break;
+										} else {
+												if ($detail) {
+														//echo sprintf("%02d", $b)."-".$t."==".$detail->nama_produk."|".$detail->jumlah."<br>";
+														$aktual[]= $detail->jumlah;
+														$bulan[] = sprintf("%02d",$b)." - ".$t;
+												} else {
+														//echo sprintf("%02d", $b)."-".$t."==".""."|"."0"."<br>";
+														$aktual[]= 0;
+														$bulan[] = sprintf("%02d",$b)." - ".$t;
+												}
+										}
+								}
+						}
+				}
+
+				$alpha = 0.1;
+
+				$aktualInt = array_map('intval',$aktual);
+
+				$nilaiAwal = array_slice( $aktual, 0,1);
+				$nilaiAwalInt = array_map('intval',$nilaiAwal);
+
+				//SMOOTHING 1
+					$s1[]= $nilaiAwalInt[0];
+					$s1Int = array_map('intval',$s1);
+
+					for($i = 1;$i < count($aktualInt)+1;$i++)
+						{
+							$s1Int[$i]= round($alpha * $aktualInt[$i-1]+(1-$alpha) * $s1Int[$i-1],2);
+						}
+
+				//SMOOTHING 2
+					$s2[]= $nilaiAwalInt[0];
+					$s2Int = array_map('intval',$s2);
+
+					for($i = 1;$i < count($s1Int);$i++)
+						{
+							$s2Int[$i]= round($alpha * $s1Int[$i]+(1-$alpha) * $s2Int[$i-1],2);
+						}
+
+				//SMOOTHING 3
+					$s3[]= $nilaiAwalInt[0];
+					$s3Int = array_map('intval',$s2);
+
+					for($i = 1;$i < count($s2Int);$i++)
+						{
+							$s3Int[$i]= round($alpha * $s2Int[$i]+(1-$alpha) * $s3Int[$i-1],2);
+						}
+
+						//AT
+							$at = array();
+							$atInt = array_map('intval',$at);
+
+							for($i = 1;$i < count($s1Int);$i++)
+								{
+									$atInt[$i]= round(3 * $s1Int[$i] - 3 * $s2Int[$i] + $s3Int[$i],2);
+								}
+
+						//BT
+						$bt = array();
+						$btInt = array_map('intval',$bt);
+
+						for($i = 1;$i < count($s1Int);$i++)
+							{
+								$btInt[$i]= round($alpha/2*pow(1-$alpha,2)*((6-5*$alpha)*$s1Int[$i]-(10-8*$alpha)*$s2Int[$i]+(4-3*$alpha)*$s3Int[$i]),2);
+							}
+
+						//CT
+							$ct = array();
+							$ctInt = array_map('intval',$ct);
+
+							for($i = 1;$i < count($s1Int);$i++)
+								{
+									$ctInt[$i]= round(pow($alpha,2)/pow(1-$alpha,2)*($s1Int[$i]-2*$s2Int[$i]+$s3Int[$i]),2);
+								}
+
+						//FT+M
+							$ft = array();
+							$ftInt = array_map('intval',$ft);
+
+							for($i = 1;$i < count($atInt)+1;$i++)
+								{
+									$ftInt[$i]= round($atInt[$i]+$btInt[$i]*1+1/2*$ctInt[$i]*pow(1,2),0);
+								}
+
+						//at-ft
+							$selisih = array();
+							$selisihInt = array_map('intval',$selisih);
+
+							for($i = 1;$i < count($aktualInt);$i++)
+								{
+									$selisihInt[$i]= $aktualInt[$i]-$ftInt[$i];
+								}
+
+						//(at-ft)2
+							$selisihPangkat = array();
+							$selisihPangkatInt = array_map('intval',$selisihPangkat);
+
+							for($i = 1;$i < count($selisihInt)+1;$i++)
+								{
+									$selisihPangkatInt[$i]= pow($selisihInt[$i],2);
+								}
+
+					//abs((at-ft)/at)*100
+						$selisihSeratus = array();
+						$selisihSeratusInt = array_map('intval',$selisihSeratus);
+
+						for($i = 1;$i < count($selisihInt)+1;$i++)
+							{
+								$selisihSeratusInt[$i]= abs($selisihInt[$i]/$aktualInt[$i]);
+							}
+
+					$jumlah= count(array_slice($aktualInt,1));
+					$MAD = array_sum(array_map("abs",$selisihInt));
+					$MSE = array_sum($selisihPangkatInt);
+					$MAPE = round(array_sum($selisihSeratusInt),3);
+
+					$hasilMAD = round($MAD / $jumlah,3);
+					$hasilMSE = round($MSE / ($jumlah-1),3);
+					$hasilMAPE= round($MAPE / $jumlah * 100,3);
+					$hasilKeseluruhan = $hasilMAD + $hasilMSE + $hasilMAPE;
+					$ratarataKesalahan = round($hasilKeseluruhan/3,3);
+				// echo "<pre>";
+				// 	print_r($nilaiAwalInt);
+				// echo "</pre>";
+				echo "<br>";
+				echo "<p>AKtual</p>";
+				echo "<pre>";
+					print_r($bulan);
+				echo "</pre>";
+				echo "<p>S1</p>";
+				echo "<pre>";
+					print_r($s1Int);
+				echo "</pre>";
+				echo "<p>S2</p>";
+				echo "<pre>";
+					print_r($s2Int);
+				echo "</pre>";
+				echo "<p>S3</p>";
+				echo "<pre>";
+					print_r($s3Int);
+				echo "</pre>";
+				echo "<p>at</p>";
+				echo "<pre>";
+					print_r($atInt);
+				echo "</pre>";
+				echo "<p>bt</p>";
+				echo "<pre>";
+					print_r($btInt);
+				echo "</pre>";
+				echo "<p>ct</p>";
+				echo "<pre>";
+					print_r($ctInt);
+				echo "</pre>";
+				echo "<p>Ft+M</p>";
+				echo "<pre>";
+					print_r($ftInt);
+				echo "</pre>";
+				echo "<p>Selisih</p>";
+				echo "<pre>";
+					print_r($selisihInt);
+				echo "</pre>";
+				echo "<p>Selisih Absolute</p>";
+				echo "<pre>";
+					print_r(array_map("abs",$selisihInt));
+				echo "</pre>";
+				echo "<p>Selisih Pangkat</p>";
+				echo "<pre>";
+					print_r($selisihPangkatInt);
+				echo "</pre>";
+				echo "<p>Selisih Seratus</p>";
+				echo "<pre>";
+					print_r($selisihSeratusInt);
+				echo "</pre>";
+				echo "<p>MAD</p>";
+				echo "<pre>";
+					print_r($hasilMAD);
+				echo "</pre>";
+				echo "<p>MSE</p>";
+				echo "<pre>";
+					print_r($hasilMSE);
+				echo "</pre>";
+				echo "<p>MAPE</p>";
+				echo "<pre>";
+					print_r($hasilMAPE);
+				echo "</pre>";
+				echo "<p>Hasil Keseluruhan</p>";
+				echo "<pre>";
+					print_r($hasilKeseluruhan);
+				echo "</pre>";
+				echo "<p>Rata- Rata Kesalahan</p>";
+				echo "<pre>";
+					print_r($ratarataKesalahan);
+				echo "</pre>";
+				 ?>
+				<!-- END RUMUS TRIPLE EXPONENTIAL SMOOTHING -->
+
 				<div class="page-inner mt--5">
 					<div class="row mt--2">
 						<div class="col-md-6">
@@ -52,9 +280,11 @@
 								<div class="card-body">
 									<div class="card-title">Statistik Keseluruhan</div>
 									<div class="d-flex flex-wrap justify-content-left pb-2 pt-4">
-										<div class="px-2 pb-2 pb-md-0">
-											<h6 class="fw-bold mt-3 mb-0">Produk</h6>
-										</div>
+										<?php if (isset($produk)): ?>
+											<div class="px-2 pb-2 pb-md-0">
+												<h6 class="fw-bold mt-3 mb-0">Nama Produk : &nbsp <?php echo $produk->nama_produk ?></h6>
+											</div>
+										<?php endif; ?>
 									</div>
 									<div class="d-flex flex-wrap justify-content-left pb-2 pt-4">
 										<div class="px-2 pb-2 pb-md-0">
@@ -110,141 +340,6 @@
 														<div class="form-button-action">
 															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Ramalkan">
 																<i class="fas fa-chart-line"></i>
-															</button>
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>Garrett Winters</td>
-													<td>Accountant</td>
-													<td>Tokyo</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>Ashton Cox</td>
-													<td>Junior Technical Author</td>
-													<td>San Francisco</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>Cedric Kelly</td>
-													<td>Senior Javascript Developer</td>
-													<td>Edinburgh</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>Airi Satou</td>
-													<td>Accountant</td>
-													<td>Tokyo</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>Brielle Williamson</td>
-													<td>Integration Specialist</td>
-													<td>New York</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>Herrod Chandler</td>
-													<td>Sales Assistant</td>
-													<td>San Francisco</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>Rhona Davidson</td>
-													<td>Integration Specialist</td>
-													<td>Tokyo</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>Colleen Hurst</td>
-													<td>Javascript Developer</td>
-													<td>San Francisco</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
-															</button>
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
-												</tr>
-												<tr>
-													<td>Sonya Frost</td>
-													<td>Software Engineer</td>
-													<td>Edinburgh</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-																<i class="fa fa-edit"></i>
 															</button>
 															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
 																<i class="fa fa-times"></i>

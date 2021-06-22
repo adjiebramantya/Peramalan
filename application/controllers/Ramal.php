@@ -20,8 +20,9 @@ class Ramal extends CI_Controller {
 		$this->load->view('ramal',$data);
 	}
 
-	public function ramal_produk(){
-		$this->load->view('ramalProduk');
+	public function ramal_produk($id_produk){
+		$data['produk'] = $this->M_produk->ramal_produk($id_produk)->row();
+		$this->load->view('ramalProduk',$data);
 	}
 
 	public function tesRamal(){
@@ -45,7 +46,7 @@ class Ramal extends CI_Controller {
 								$starter = 1;
 								break;
 						} else {
-								$detail = $this->db->query("SELECT produk.nama_produk as nama_produk, YEAR(tanggal) as tahun, MONTH(tanggal) as Bulan, SUM(jumlah) as jumlah FROM barang_masuk JOIN produk ON barang_masuk.id_produk= produk.id_produk WHERE barang_masuk.id_produk = 16 AND MONTH(tanggal) = '".sprintf("%02d", $b)."' AND YEAR(tanggal) = '".sprintf("%02d", $t)."' GROUP BY MONTH(tanggal), YEAR(tanggal) ORDER BY tanggal asc")->row();
+								$detail = $this->db->query("SELECT produk.nama_produk as nama_produk, YEAR(tanggal) as tahun, MONTH(tanggal) as Bulan, SUM(jumlah) as jumlah FROM barang_masuk JOIN produk ON barang_masuk.id_produk= produk.id_produk WHERE barang_masuk.id_produk = 26 AND MONTH(tanggal) = '".sprintf("%02d", $b)."' AND YEAR(tanggal) = '".sprintf("%02d", $t)."' GROUP BY MONTH(tanggal), YEAR(tanggal) ORDER BY tanggal asc")->row();
 
 								if ($t == date("Y", strtotime($akhir->tanggal)) && $b > date("m", strtotime($akhir->tanggal))) {
 										break;
@@ -53,9 +54,11 @@ class Ramal extends CI_Controller {
 										if ($detail) {
 												//echo sprintf("%02d", $b)."-".$t."==".$detail->nama_produk."|".$detail->jumlah."<br>";
 												$aktual[]= $detail->jumlah;
+												$bulan[] = sprintf("%02d",$b)." - ".$t;
 										} else {
 												//echo sprintf("%02d", $b)."-".$t."==".""."|"."0"."<br>";
 												$aktual[]= 0;
+												$bulan[] = sprintf("%02d",$b)." - ".$t;
 										}
 								}
 						}
