@@ -175,13 +175,23 @@ class Ramal extends CI_Controller {
 			$data['aktual']= $aktualInt;
 			$data['ft']= $ftInt;
 
+			$data['dt']['bulan'] = $bulan;
+			$data['dt']['aktual']= $aktualInt;
+			$data['dt']['ft']= $ftInt;
+
 			$data['hasilMAD'] = $hasilMAD;
 			$data['hasilMSE'] = $hasilMSE;
 			$data['hasilMAPE'] = $hasilMAPE;
 			$data['ratarataKesalahan'] = $ratarataKesalahan;
 
+			$data['siswa'] = [
+												["nama"=>"Budi","kelas"=>"3MM1"],
+												["nama"=>"Cika","kelas"=>"3MM2"],
+												["nama"=>"Dika","kelas"=>"3MM1"]
+											];
+
 		// echo "<pre>";
-		// 	print_r($data['bulan']);
+		// 	print_r($data['dt']);
 		// echo "</pre>";
 		// echo "<pre>";
 		// 	print_r($data['aktual']);
@@ -345,81 +355,89 @@ class Ramal extends CI_Controller {
 			$ratarataKesalahan = round($hasilKeseluruhan/3,3);
 
 
-			$data['bulan'] = $bulan;
-			$data['aktual']= $aktualInt;
-			$data['ft']= $ftInt;
+
+			$data['data']['bulan'] = $bulan;
+			$data['data']['aktual']= $aktualInt;
+			$data['data']['ft']= $ftInt;
+
+			$data['hasilMAD'] = $hasilMAD;
+			$data['hasilMSE'] = $hasilMSE;
+			$data['hasilMAPE'] = $hasilMAPE;
+			$data['ratarataKesalahan'] = $ratarataKesalahan;
+
+
+		echo "<pre>";
+			print_r($data['data']);
+		echo "</pre>";
+		// echo "<br>";
+		// echo "<p>AKtual</p>";
 		// echo "<pre>";
-		// 	print_r($nilaiAwalInt);
+		// 	print_r($data['aktual']);
 		// echo "</pre>";
-		echo "<br>";
-		echo "<p>AKtual</p>";
-		echo "<pre>";
-			print_r($data['aktual']);
-		echo "</pre>";
-		echo "<p>S1</p>";
-		echo "<pre>";
-			print_r($s1Int);
-		echo "</pre>";
-		echo "<p>S2</p>";
-		echo "<pre>";
-			print_r($s2Int);
-		echo "</pre>";
-		echo "<p>S3</p>";
-		echo "<pre>";
-			print_r($s3Int);
-		echo "</pre>";
-		echo "<p>at</p>";
-		echo "<pre>";
-			print_r($atInt);
-		echo "</pre>";
-		echo "<p>bt</p>";
-		echo "<pre>";
-			print_r($btInt);
-		echo "</pre>";
-		echo "<p>ct</p>";
-		echo "<pre>";
-			print_r($ctInt);
-		echo "</pre>";
-		echo "<p>Ft+M</p>";
-		echo "<pre>";
-			print_r($ftInt);
-		echo "</pre>";
-		echo "<p>Selisih</p>";
-		echo "<pre>";
-			print_r($selisihInt);
-		echo "</pre>";
-		echo "<p>Selisih Absolute</p>";
-		echo "<pre>";
-			print_r(array_map("abs",$selisihInt));
-		echo "</pre>";
-		echo "<p>Selisih Pangkat</p>";
-		echo "<pre>";
-			print_r($selisihPangkatInt);
-		echo "</pre>";
-		echo "<p>Selisih Seratus</p>";
-		echo "<pre>";
-			print_r($selisihSeratusInt);
-		echo "</pre>";
-		echo "<p>MAD</p>";
-		echo "<pre>";
-			print_r($hasilMAD);
-		echo "</pre>";
-		echo "<p>MSE</p>";
-		echo "<pre>";
-			print_r($hasilMSE);
-		echo "</pre>";
-		echo "<p>MAPE</p>";
-		echo "<pre>";
-			print_r($hasilMAPE);
-		echo "</pre>";
-		echo "<p>Hasil Keseluruhan</p>";
-		echo "<pre>";
-			print_r($hasilKeseluruhan);
-		echo "</pre>";
-		echo "<p>Rata- Rata Kesalahan</p>";
-		echo "<pre>";
-			print_r($ratarataKesalahan);
-		echo "</pre>";
+		// echo "<p>S1</p>";
+		// echo "<pre>";
+		// 	print_r($s1Int);
+		// echo "</pre>";
+		// echo "<p>S2</p>";
+		// echo "<pre>";
+		// 	print_r($s2Int);
+		// echo "</pre>";
+		// echo "<p>S3</p>";
+		// echo "<pre>";
+		// 	print_r($s3Int);
+		// echo "</pre>";
+		// echo "<p>at</p>";
+		// echo "<pre>";
+		// 	print_r($atInt);
+		// echo "</pre>";
+		// echo "<p>bt</p>";
+		// echo "<pre>";
+		// 	print_r($btInt);
+		// echo "</pre>";
+		// echo "<p>ct</p>";
+		// echo "<pre>";
+		// 	print_r($ctInt);
+		// echo "</pre>";
+		// echo "<p>Ft+M</p>";
+		// echo "<pre>";
+		// 	print_r($ftInt);
+		// echo "</pre>";
+		// echo "<p>Selisih</p>";
+		// echo "<pre>";
+		// 	print_r($selisihInt);
+		// echo "</pre>";
+		// echo "<p>Selisih Absolute</p>";
+		// echo "<pre>";
+		// 	print_r(array_map("abs",$selisihInt));
+		// echo "</pre>";
+		// echo "<p>Selisih Pangkat</p>";
+		// echo "<pre>";
+		// 	print_r($selisihPangkatInt);
+		// echo "</pre>";
+		// echo "<p>Selisih Seratus</p>";
+		// echo "<pre>";
+		// 	print_r($selisihSeratusInt);
+		// echo "</pre>";
+		// echo "<p>MAD</p>";
+		// echo "<pre>";
+		// 	print_r($hasilMAD);
+		// echo "</pre>";
+		// echo "<p>MSE</p>";
+		// echo "<pre>";
+		// 	print_r($hasilMSE);
+		// echo "</pre>";
+		// echo "<p>MAPE</p>";
+		// echo "<pre>";
+		// 	print_r($hasilMAPE);
+		// echo "</pre>";
+		// echo "<p>Hasil Keseluruhan</p>";
+		// echo "<pre>";
+		// 	print_r($hasilKeseluruhan);
+		// echo "</pre>";
+		// echo "<p>Rata- Rata Kesalahan</p>";
+		// echo "<pre>";
+		// 	print_r($ratarataKesalahan);
+		// echo "</pre>";
 	}
 
 }

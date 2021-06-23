@@ -132,13 +132,13 @@
 												</tr>
 											</tfoot>
 											<tbody>
-											<?php foreach ($ramal as $data): ?>
+											<?php foreach ($dt as $d): ?>
 												<tr>
 													<td>
-														<?php echo $data['bulan'] ?>
+														<?php ?>
 													</td>
 													<td>
-														<?php echo $data['aktual'] ?>
+														<?php ?>
 													</td>
 													<td>Edinburgh</td>
 													<td>
@@ -170,9 +170,10 @@
 	</div>
 	<?php $this->load->view('_partial/js.php') ?>
 
+	<div hidden>
 	<?php
 		foreach ($bulan as $data) {
-			$nama_bulan .="'$data'".", ";
+			$nama_bulan  .="'$data'".", ";
 		}
 	 ?>
 
@@ -187,6 +188,7 @@
 				$ftGrafik .="'$data'".", ";
 			}
 		 ?>
+		</div>
 
   <script type="text/javascript">
   // Add Row
