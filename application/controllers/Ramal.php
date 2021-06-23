@@ -171,16 +171,28 @@ class Ramal extends CI_Controller {
 			$ratarataKesalahan = round($hasilKeseluruhan/3,3);
 
 
-			$data['ramal']['bulan'] = $bulan;
-			$data['ramal']['aktual']= $aktualInt;
-			$data['ramal']['ft']= $ftInt;
+			$data['bulan'] = $bulan;
+			$data['aktual']= $aktualInt;
+			$data['ft']= $ftInt;
 
-		echo "<pre>";
-			print_r($data['ramal']['bulan']);
-		echo "</pre>";
+			$data['hasilMAD'] = $hasilMAD;
+			$data['hasilMSE'] = $hasilMSE;
+			$data['hasilMAPE'] = $hasilMAPE;
+			$data['ratarataKesalahan'] = $ratarataKesalahan;
+
+		// echo "<pre>";
+		// 	print_r($data['bulan']);
+		// echo "</pre>";
+		// echo "<pre>";
+		// 	print_r($data['aktual']);
+		// echo "</pre>";
+		// echo "<pre>";
+		// 	print_r($data['ft']);
+		// echo "</pre>";
+		// echo json_encode($data['bulan']);
 
 
-		// $this->load->view('ramalProduk',$data);
+		 $this->load->view('ramalProduk',$data);
 	}
 
 	public function tesRamal(){
@@ -204,7 +216,7 @@ class Ramal extends CI_Controller {
 								$starter = 1;
 								break;
 						} else {
-								$detail = $this->db->query("SELECT produk.nama_produk as nama_produk, YEAR(tanggal) as tahun, MONTH(tanggal) as Bulan, SUM(jumlah) as jumlah FROM barang_masuk JOIN produk ON barang_masuk.id_produk= produk.id_produk WHERE barang_masuk.id_produk = 12 AND MONTH(tanggal) = '".sprintf("%02d", $b)."' AND YEAR(tanggal) = '".sprintf("%02d", $t)."' GROUP BY MONTH(tanggal), YEAR(tanggal) ORDER BY tanggal asc")->row();
+								$detail = $this->db->query("SELECT produk.nama_produk as nama_produk, YEAR(tanggal) as tahun, MONTH(tanggal) as Bulan, SUM(jumlah) as jumlah FROM barang_masuk JOIN produk ON barang_masuk.id_produk= produk.id_produk WHERE barang_masuk.id_produk = 9 AND MONTH(tanggal) = '".sprintf("%02d", $b)."' AND YEAR(tanggal) = '".sprintf("%02d", $t)."' GROUP BY MONTH(tanggal), YEAR(tanggal) ORDER BY tanggal asc")->row();
 
 								if ($t == date("Y", strtotime($akhir->tanggal)) && $b > date("m", strtotime($akhir->tanggal))) {
 										break;
@@ -346,7 +358,7 @@ class Ramal extends CI_Controller {
 		echo "</pre>";
 		echo "<p>S1</p>";
 		echo "<pre>";
-			print_r($data['s1']);
+			print_r($s1Int);
 		echo "</pre>";
 		echo "<p>S2</p>";
 		echo "<pre>";

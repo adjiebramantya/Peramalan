@@ -59,14 +59,37 @@
 									<div class="d-flex flex-wrap justify-content-left pb-2 pt-4">
 										<?php if (isset($produk)): ?>
 											<div class="px-2 pb-2 pb-md-0">
-												<h6 class="fw-bold mt-3 mb-0">Nama Produk : &nbsp <?php echo $produk->nama_produk ?></h6>
+												<h3 class="fw-bold mt-3 mb-0">Nama Produk : &nbsp <?php echo $produk->nama_produk ?></h3>
 											</div>
 										<?php endif; ?>
 									</div>
-									<div class="d-flex flex-wrap justify-content-left pb-2 pt-4">
+									<div class="d-flex flex-wrap justify-content-left pb-1 pt-2">
+									<?php if (isset($hasilMAD)): ?>
 										<div class="px-2 pb-2 pb-md-0">
-											<h6 class="fw-bold mt-3 mb-0">Produk</h6>
+											<h6 class="fw-bold mt-3 mb-0">MAD : &nbsp <?php echo $hasilMAD ?></h6>
 										</div>
+									<?php endif; ?>
+									</div>
+									<div class="d-flex flex-wrap justify-content-left pb-1 pt-2">
+									<?php if (isset($hasilMSE)): ?>
+										<div class="px-2 pb-2 pb-md-0">
+											<h6 class="fw-bold mt-3 mb-0">MSE : &nbsp <?php echo $hasilMSE ?></h6>
+										</div>
+									<?php endif; ?>
+									</div>
+									<div class="d-flex flex-wrap justify-content-left pb-1 pt-2">
+									<?php if (isset($hasilMAPE)): ?>
+										<div class="px-2 pb-2 pb-md-0">
+											<h6 class="fw-bold mt-3 mb-0">MAPE : &nbsp <?php echo $hasilMAPE ?> %</h6>
+										</div>
+									<?php endif; ?>
+									</div>
+									<div class="d-flex flex-wrap justify-content-left pb-1 pt-2">
+									<?php if (isset($ratarataKesalahan)): ?>
+										<div class="px-2 pb-2 pb-md-0">
+											<h6 class="fw-bold mt-3 mb-0">Rata - rata Kesalahan : &nbsp <?php echo $ratarataKesalahan ?></h6>
+										</div>
+									<?php endif; ?>
 									</div>
 								</div>
 							</div>
@@ -77,7 +100,7 @@
 									<div class="card-title">Grafik Keseluruhan</div>
 								</div>
 								<div class="card-body">
-									<div id="chart-container">
+									<div id="chart-container" style="height:350px">
 										<canvas id="multipleLineChart"></canvas>
 									</div>
 								</div>
@@ -147,6 +170,24 @@
 	</div>
 	<?php $this->load->view('_partial/js.php') ?>
 
+	<?php
+		foreach ($bulan as $data) {
+			$nama_bulan .="'$data'".", ";
+		}
+	 ?>
+
+	 <?php
+		 foreach ($aktual as $data) {
+			 $aktualGrafik .="'$data'".", ";
+		 }
+		?>
+
+		<?php
+			foreach ($ft as $data) {
+				$ftGrafik .="'$data'".", ";
+			}
+		 ?>
+
   <script type="text/javascript">
   // Add Row
     $('#add-row').DataTable({
@@ -159,46 +200,33 @@ var multipleLineChart = document.getElementById('multipleLineChart').getContext(
 var myMultipleLineChart = new Chart(multipleLineChart, {
 	type: 'line',
 	data: {
-		labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+		labels: [<?php echo $nama_bulan;?>,"hasil"],
 		datasets: [{
-			label: "Python",
+			label: "Aktual",
 			borderColor: "#1d7af3",
 			pointBorderColor: "#FFF",
 			pointBackgroundColor: "#1d7af3",
-			pointBorderWidth: 2,
-			pointHoverRadius: 4,
+			pointBorderWidth: 1,
+			pointHoverRadius: 2,
 			pointHoverBorderWidth: 1,
-			pointRadius: 4,
+			pointRadius: 2,
 			backgroundColor: 'transparent',
 			fill: true,
 			borderWidth: 2,
-			data: [30, 45, 45, 68, 69, 90, 100, 158, 177, 200, 245, 256,]
+			data: [<?php echo $aktualGrafik;?>]
 		},{
-			label: "PHP",
+			label: "Hasil Ramal",
 			borderColor: "#59d05d",
 			pointBorderColor: "#FFF",
 			pointBackgroundColor: "#59d05d",
-			pointBorderWidth: 2,
-			pointHoverRadius: 4,
+			pointBorderWidth: 1,
+			pointHoverRadius: 2,
 			pointHoverBorderWidth: 1,
-			pointRadius: 4,
+			pointRadius: 2,
 			backgroundColor: 'transparent',
 			fill: true,
 			borderWidth: 2,
-			data: [10, 20, 55, 75, 80, 48, 59, 55, 23, 107, 60, 87]
-		}, {
-			label: "Ruby",
-			borderColor: "#f3545d",
-			pointBorderColor: "#FFF",
-			pointBackgroundColor: "#f3545d",
-			pointBorderWidth: 2,
-			pointHoverRadius: 4,
-			pointHoverBorderWidth: 1,
-			pointRadius: 4,
-			backgroundColor: 'transparent',
-			fill: true,
-			borderWidth: 2,
-			data: [10, 30, 58, 79, 90, 105, 117, 160, 185, 210, 185, 194]
+			data: [ ,<?php echo $ftGrafik;?>]
 		}]
 	},
 	options : {
