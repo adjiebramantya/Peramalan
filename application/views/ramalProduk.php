@@ -91,6 +91,13 @@
 										</div>
 									<?php endif; ?>
 									</div>
+									<div class="d-flex flex-wrap justify-content-left pb-1 pt-2">
+									<?php if (isset($produkBulan)): ?>
+										<div class="px-2 pb-2 pb-md-0">
+											<h6 class="fw-bold mt-3 mb-0">Hasil Ramalan Produk Bulan Berikutnya : &nbsp <?php echo $produkBulan ?></h6>
+										</div>
+									<?php endif; ?>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -117,42 +124,28 @@
 										<table id="add-row" class="display table table-striped table-hover" >
 											<thead>
 												<tr>
-													<th>Bulan</th>
-													<th>Jumlah Aktual</th>
-													<th>Office</th>
-													<th style="width: 10%">Action</th>
+													<th>Tanggal</th>
+													<?php foreach ($bulan as $b): ?>
+														<th><?php echo $b ?></th>
+													<?php endforeach; ?>
+													<th>Bulan Selanjutnya</th>
 												</tr>
 											</thead>
-											<tfoot>
-												<tr>
-													<th>Bulan</th>
-													<th>Jumlah Aktual</th>
-													<th>Office</th>
-													<th>Action</th>
-												</tr>
-											</tfoot>
 											<tbody>
-											<?php foreach ($dt as $d): ?>
 												<tr>
-													<td>
-														<?php ?>
-													</td>
-													<td>
-														<?php ?>
-													</td>
-													<td>Edinburgh</td>
-													<td>
-														<div class="form-button-action">
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Ramalkan">
-																<i class="fas fa-chart-line"></i>
-															</button>
-															<button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
-																<i class="fa fa-times"></i>
-															</button>
-														</div>
-													</td>
+													<td>Jumlah Aktual</td>
+													<?php foreach ($aktual as $akt): ?>
+														<td><?php echo $akt ?></td>
+													<?php endforeach; ?>
+													<td>-</td>
 												</tr>
-											<?php endforeach; ?>
+												<tr>
+													<td>Hasil Ramal</td>
+													<td>-</td>
+													<?php foreach ($ft as $f): ?>
+														<td><?php echo $f ?></td>
+													<?php endforeach; ?>
+												</tr>
 											</tbody>
 										</table>
 									</div>

@@ -175,23 +175,20 @@ class Ramal extends CI_Controller {
 			$data['aktual']= $aktualInt;
 			$data['ft']= $ftInt;
 
-			$data['dt']['bulan'] = $bulan;
-			$data['dt']['aktual']= $aktualInt;
-			$data['dt']['ft']= $ftInt;
+			// $data['dt']['bulan'] = $bulan;
+			// $data['dt']['aktual']= $aktualInt;
+			// $data['dt']['ft']= $ftInt;
 
 			$data['hasilMAD'] = $hasilMAD;
 			$data['hasilMSE'] = $hasilMSE;
 			$data['hasilMAPE'] = $hasilMAPE;
 			$data['ratarataKesalahan'] = $ratarataKesalahan;
+			$data['produkBulan'] = end($ftInt);
 
-			$data['siswa'] = [
-												["nama"=>"Budi","kelas"=>"3MM1"],
-												["nama"=>"Cika","kelas"=>"3MM2"],
-												["nama"=>"Dika","kelas"=>"3MM1"]
-											];
+
 
 		// echo "<pre>";
-		// 	print_r($data['dt']);
+		// 	print_r($data['produkBulan']);
 		// echo "</pre>";
 		// echo "<pre>";
 		// 	print_r($data['aktual']);
