@@ -122,6 +122,14 @@
 											</button>
 										</div>
 									<?php endif; ?>
+									<?php if ($this->session->flashdata('hapus')): ?>
+										<div class="alert alert-danger alert-dismissible fade show" role="alert">
+												<?= $this->session->flashdata('hapus'); ?>
+												<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+									<?php endif; ?>
 
 									<div class="table-responsive">
 										<table id="add-row" class="display table table-striped table-hover" >
@@ -252,8 +260,8 @@
 												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 													<span aria-hidden="true">&times;</span>
 												</button>
-											</div
-				            <form class="form-horizontal" method="post" action="<?= base_url('produk/hapus_produk/<?php echo $id_produk?>')?>">
+											</div>
+				            <form class="form-horizontal" method="post" action="<?= base_url('produk/hapus_produk/'.$id_produk)?>">
 				                <div class="modal-body">
 				                    <p>Anda yakin mau menghapus <b><?php echo $nama_produk;?></b></p>
 				                </div>

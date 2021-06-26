@@ -80,6 +80,7 @@ class Produk extends CI_Controller {
 	public function hapus_produk($id_produk){
 		$where = array('id_produk' => $id_produk);
 		$this->M_produk->hapus_data($where,'produk');
+		$this->session->set_flashdata('hapus', 'Anda Berhasil Menghapus data Produk');
 		redirect('produk');
 	}
 }
