@@ -119,7 +119,22 @@
 										</div>
 									</div>
 									<!-- end Modal -->
-
+									<?php if ($this->session->flashdata('success')): ?>
+										<div class="alert alert-success alert-dismissible fade show" role="alert">
+												<?= $this->session->flashdata('success'); ?>
+												<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+									<?php endif; ?>
+									<?php if ($this->session->flashdata('hapus')): ?>
+										<div class="alert alert-danger alert-dismissible fade show" role="alert">
+												<?= $this->session->flashdata('hapus'); ?>
+												<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+									<?php endif; ?>
 									<form action="<?= base_url('barangmasuk/barang_masuk')?>" method="POST">
 										<div class="row">
 											<div class="col-md-6">

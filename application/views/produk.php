@@ -202,7 +202,7 @@
 													<span aria-hidden="true">&times;</span>
 												</button>
 											</div>
-											<form action="<?= base_url('produk/edit_produk/<?php echo $id_produk?>')?>" method="POST">
+											<form action="<?= base_url('produk/edit_produk/')?>" method="POST">
 											<div class="modal-body">
 													<div class="row">
 														<div class="col-sm-12">

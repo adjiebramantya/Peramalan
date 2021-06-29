@@ -33,7 +33,7 @@ class Ramal extends CI_Controller {
 		$where = array(
 			'id_alpha' => '1'
 		);
-
+		$this->session->set_flashdata('success', 'Anda Berhasil Mengubah alpha');
 		$this->M_produk->update_data($where,$data,'alpha');
 		redirect('ramal');
 	}

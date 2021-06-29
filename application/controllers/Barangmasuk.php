@@ -70,28 +70,30 @@ class Barangmasuk extends CI_Controller {
 	public function hapus_barangMasuk($id_masuk){
 		$where = array('id_masuk' => $id_masuk);
 		$this->M_barangMasuk->hapus_data($where,'barang_masuk');
+		$this->session->set_flashdata('hapus', 'Anda Berhasil Menghapus data Barang Masuk');
 		redirect('barangmasuk');
 	}
 
 	function edit_barangMasuk(){
-	$id_produk = $this->input->post('id_masuk');
-	$nama_produk = $this->input->post('nama_produk');
-	$jenis_produk = $this->input->post('jenis_produk');
-	$harga = $this->input->post('harga');
+	$id_masuk = $this->input->post('id_masuk');
+	$tanggal = $this->input->post('tanggal');
+	$id_produk = $this->input->post('id_produk');
+	$jumlah = $this->input->post('jumlah');
 
 	$data = array(
-		'nama_produk' => $nama_produk,
-		'jenis_produk' => $jenis_produk,
-		'harga' => $harga
+		'id_masuk' => $id_masuk,
+		'tanggal' => $tanggal,
+		'id_produk' => $id_produk,
+		'jumlah' => $jumlah
 	);
 
 	$where = array(
-		'id_produk' => $id_produk
+		'id_masuk' => $id_masuk
 	);
 
-	$this->session->set_flashdata('success', 'Anda Berhasil Mengubah data Produk');
-	$this->M_produk->update_data($where,$data,'produk');
-	redirect('produk');
+	$this->session->set_flashdata('success', 'Anda Berhasil Mengubah data Barang Masuk');
+	$this->M_barangMasuk->update_data($where,$data,'barang_masuk');
+	redirect('barangmasuk');
 
 	}
 
