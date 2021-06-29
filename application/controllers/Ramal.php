@@ -183,12 +183,13 @@ class Ramal extends CI_Controller {
 			$MSE = array_sum($selisihPangkatInt);
 			$MAPE = round(array_sum($selisihSeratusInt),3);
 
+		 echo "<div  class='' hidden>"; 
 			$hasilMAD = round($MAD / $jumlah,3);
 			$hasilMSE = round($MSE / ($jumlah-1),3);
 			$hasilMAPE= round($MAPE / $jumlah * 100,3);
 			$hasilKeseluruhan = $hasilMAD + $hasilMSE + $hasilMAPE;
 			$ratarataKesalahan = round($hasilKeseluruhan/3,3);
-
+		 echo "</div>";
 
 			$data['bulan'] = $bulan;
 			$data['aktual']= $aktualInt;
