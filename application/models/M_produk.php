@@ -13,6 +13,12 @@ class M_produk extends CI_Model{
 		return $this->db->get();
 	}
 
+	function alpha(){
+		$this->db->select('*');
+		$this->db->from('alpha');
+		return $this->db->get();
+	}
+
 	function nama_produk(){
 		$query= $this->db->query("SELECT produk.nama_produk as produk, sum(jumlah) as jumlah FROM barang_masuk JOIN produk
 															WHERE barang_masuk.id_produk= produk.id_produk

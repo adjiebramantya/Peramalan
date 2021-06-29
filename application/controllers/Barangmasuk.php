@@ -73,4 +73,26 @@ class Barangmasuk extends CI_Controller {
 		redirect('barangmasuk');
 	}
 
+	function edit_barangMasuk(){
+	$id_produk = $this->input->post('id_masuk');
+	$nama_produk = $this->input->post('nama_produk');
+	$jenis_produk = $this->input->post('jenis_produk');
+	$harga = $this->input->post('harga');
+
+	$data = array(
+		'nama_produk' => $nama_produk,
+		'jenis_produk' => $jenis_produk,
+		'harga' => $harga
+	);
+
+	$where = array(
+		'id_produk' => $id_produk
+	);
+
+	$this->session->set_flashdata('success', 'Anda Berhasil Mengubah data Produk');
+	$this->M_produk->update_data($where,$data,'produk');
+	redirect('produk');
+
+	}
+
 }

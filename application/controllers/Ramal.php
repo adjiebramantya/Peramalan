@@ -17,7 +17,25 @@ class Ramal extends CI_Controller {
 	public function index()
 	{
 		$data['produk'] = $this->M_produk->tampil_produk()->result();
+		$data['alpha'] = $this->M_produk->alpha()->row();
+		// echo "<pre>";
+		// 	print_r($data['alpha']->alpha);
+		// echo "</pre>";
 		$this->load->view('ramal',$data);
+	}
+
+	public function alpha(){
+		$alpha = $this->input->post('alpha');
+		$data = array(
+			'alpha' => $alpha
+		);
+
+		$where = array(
+			'id_alpha' => '1'
+		);
+
+		$this->M_produk->update_data($where,$data,'alpha');
+		redirect('ramal');
 	}
 
 	public function ramal_produk($id_produk){
@@ -61,8 +79,9 @@ class Ramal extends CI_Controller {
 						}
 				}
 		}
+		$data['alpha'] = $this->M_produk->alpha()->row();
 
-		$alpha = 0.1;
+		$alpha = $data['alpha']->alpha;
 
 		$aktualInt = array_map('intval',$aktual);
 

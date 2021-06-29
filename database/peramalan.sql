@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2021 at 07:52 AM
+-- Generation Time: Jun 29, 2021 at 01:16 PM
 -- Server version: 10.1.39-MariaDB
 -- PHP Version: 7.3.5
 
@@ -21,6 +21,24 @@ SET time_zone = "+00:00";
 --
 -- Database: `peramalan`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `alpha`
+--
+
+CREATE TABLE `alpha` (
+  `id_alpha` int(11) NOT NULL,
+  `alpha` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `alpha`
+--
+
+INSERT INTO `alpha` (`id_alpha`, `alpha`) VALUES
+(1, '0.1');
 
 -- --------------------------------------------------------
 
@@ -4598,7 +4616,7 @@ CREATE TABLE `produk` (
 INSERT INTO `produk` (`id_produk`, `nama_produk`, `jenis_produk`, `harga`) VALUES
 (1, 'CREAM PAGI SW2', 2, 135000),
 (2, 'CREAM PAGI 2AC', 2, 135000),
-(3, 'PAKET SW2 TONER MELASMA MC AF', 1, 378000),
+(3, 'PAKET SW2 TONER MELASMA MC AF', 1, 37800),
 (4, 'PAKET BODY WHITENING COMPLEX 3 IN 1 PH+ CAIR', 1, 585000),
 (5, 'SABUN JERAWAT CAIR', 2, 50000),
 (6, 'CLEANSING SOLUTION KECIL', 2, 40000),
@@ -4908,6 +4926,12 @@ INSERT INTO `user` (`id_user`, `email`, `nohp`, `nama`, `username`, `password`) 
 --
 
 --
+-- Indexes for table `alpha`
+--
+ALTER TABLE `alpha`
+  ADD PRIMARY KEY (`id_alpha`);
+
+--
 -- Indexes for table `barang_masuk`
 --
 ALTER TABLE `barang_masuk`
@@ -4937,6 +4961,12 @@ ALTER TABLE `user`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `alpha`
+--
+ALTER TABLE `alpha`
+  MODIFY `id_alpha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `barang_masuk`

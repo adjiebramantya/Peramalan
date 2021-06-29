@@ -49,14 +49,29 @@
 									</div>
 								</div>
 								<div class="card-body">
+									<form action="<?= base_url('Ramal/alpha')?>" method="post">
+									<div class="row">
+										<div class="col-md-2">
+											<?php if (isset($alpha)): ?>
+											<div class="form-group form-group-default">
+												<label>Alpha</label>
+												<input id="alpha" name="alpha" type="text" class="form-control" placeholder="Masukkan alpha" value="<?php echo $alpha->alpha ?>">
+											</div>
+											<?php endif; ?>
+										</div>
+										<div class="col-md-6">
+											<button type="submit" id="" class="btn btn-primary mt-2">Ubah alpha</button>
+										</div>
+									</div>
+									</form>
 									<div class="table-responsive">
 										<table id="add-row" class="display table table-striped table-hover" >
 											<thead>
 												<tr>
 													<th>Nomor</th>
 													<th>Nama Produk</th>
-													<th style="width: 15%">Jenis Produk</th>
-													<th style="width: 10%">Action</th>
+													<th style="width: 10%">Jenis Produk</th>
+													<th style="width: 13%">Action</th>
 												</tr>
 											</thead>
 											<tfoot>
