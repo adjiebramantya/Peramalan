@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 29, 2021 at 01:16 PM
+-- Generation Time: Jun 29, 2021 at 02:11 PM
 -- Server version: 10.1.39-MariaDB
 -- PHP Version: 7.3.5
 
@@ -38,7 +38,7 @@ CREATE TABLE `alpha` (
 --
 
 INSERT INTO `alpha` (`id_alpha`, `alpha`) VALUES
-(1, '0.1');
+(1, '0.4');
 
 -- --------------------------------------------------------
 
@@ -4616,7 +4616,7 @@ CREATE TABLE `produk` (
 INSERT INTO `produk` (`id_produk`, `nama_produk`, `jenis_produk`, `harga`) VALUES
 (1, 'CREAM PAGI SW2', 2, 135000),
 (2, 'CREAM PAGI 2AC', 2, 135000),
-(3, 'PAKET SW2 TONER MELASMA MC AF', 1, 37800),
+(3, 'PAKET SW2 TONER MELASMA MC AF', 1, 378000),
 (4, 'PAKET BODY WHITENING COMPLEX 3 IN 1 PH+ CAIR', 1, 585000),
 (5, 'SABUN JERAWAT CAIR', 2, 50000),
 (6, 'CLEANSING SOLUTION KECIL', 2, 40000),
@@ -4897,7 +4897,8 @@ INSERT INTO `produk` (`id_produk`, `nama_produk`, `jenis_produk`, `harga`) VALUE
 (281, 'PAKET 2 AC PC NON TONER CP/CP', 1, 327000),
 (282, 'PAKET WHITENING ECO', 1, 275000),
 (283, 'PAKET PB1 PCS + TONER B', 1, 249000),
-(284, 'PAKET M1 MIX PB1 TONER ACNE MC TR', 1, 368000);
+(284, 'PAKET M1 MIX PB1 TONER ACNE MC TR', 1, 368000),
+(285, 'Testing', 1, 12000);
 
 -- --------------------------------------------------------
 
@@ -4972,7 +4973,7 @@ ALTER TABLE `alpha`
 -- AUTO_INCREMENT for table `barang_masuk`
 --
 ALTER TABLE `barang_masuk`
-  MODIFY `id_masuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4517;
+  MODIFY `id_masuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4520;
 
 --
 -- AUTO_INCREMENT for table `jenis_produk`
@@ -4984,7 +4985,7 @@ ALTER TABLE `jenis_produk`
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=285;
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=286;
 
 --
 -- AUTO_INCREMENT for table `user`
