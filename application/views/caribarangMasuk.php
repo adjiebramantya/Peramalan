@@ -131,7 +131,7 @@
 													</button>
 												</div>
 												<div class="modal-body">
-													<form action="<?= base_url('barangMasuk/edit_barangMasuk/'.$id_masuk)?>" method="POST">
+													<form action="<?= base_url('barangmasuk/edit_barangMasuk/'.$id_masuk)?>" method="POST">
 														<div class="row">
 															<div class="" hidden>
 																<input type="text" name="id_masuk" value="<?php echo $id_masuk; ?>">
@@ -198,7 +198,7 @@
 		 													<span aria-hidden="true">&times;</span>
 		 												</button>
 		 											</div>
-		 				            <form class="form-horizontal" method="post" action="<?= base_url('barangMasuk/hapus_barangMasuk/'.$id_masuk)?>">
+		 				            <form class="form-horizontal" method="post" action="<?= base_url('barangmasuk/hapus_barangMasuk/'.$id_masuk)?>">
 		 				                <div class="modal-body">
 		 				                    <p>Anda yakin mau menghapus <b><?php echo $nama_produk;?></b></p>
 		 				                </div>
