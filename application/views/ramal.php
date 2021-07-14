@@ -105,6 +105,11 @@
 																<i class="fa fa-chart-line"></i>
 															</a>
 														</div>
+														<div class="form-button-action">
+															<a href="<?= base_url('Ramal/ramal_produkAll/'.$p->id_produk.'')?>" type="button" title="" class="btn btn-link btn-primary btn-lg">
+																<i class="fa fa-percent"></i>
+															</a>
+														</div>
 													</td>
 												</tr>
 												<?php } ?>
